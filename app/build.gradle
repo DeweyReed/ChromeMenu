@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion versions.compile_sdk
+    defaultConfig {
+        applicationId "xyz.aprildown.flashmenu.app"
+        minSdkVersion versions.min_sdk
+        targetSdkVersion versions.target_sdk
+        versionCode versions.version_code
+        versionName versions.version_name
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.kotlin_stdlib_jdk7
+
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx_test_core
+    androidTestImplementation libs.androidx_test_junit
+    androidTestImplementation libs.androidx_test_runner
+    androidTestImplementation libs.androidx_test_espresso
+
+    implementation libs.androidx_appcompat
+    implementation libs.androidx_constraintlayout
+
+    implementation libs.kotlin_anko_common
+}
