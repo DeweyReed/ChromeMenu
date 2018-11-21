@@ -52,6 +52,13 @@ public class AppMenuHandler {
         mDelegate = delegate;
         mObservers = new ArrayList<>();
         mMenuResourceId = menuResourceId;
+//    <!-- This empty view is used as the anchor for custom menu -->
+//    <View
+//        android:id="@+id/menu_anchor_stub"
+//        android:layout_width="0px"
+//        android:layout_height="0px"
+//        android:layout_gravity="bottom|start"
+//        />
         mHardwareButtonMenuAnchor = activity.findViewById(R.id.menu_anchor_stub);
         assert mHardwareButtonMenuAnchor != null
                 : "Using AppMenu requires to have menu_anchor_stub view";

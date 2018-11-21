@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright 2017 The Chromium Authors. All rights reserved.
+     Use of this source code is governed by a BSD-style license that can be
+     found in the LICENSE file.
+-->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+    <scale
+        android:duration="200"
+        android:fromXScale="0"
+        android:fromYScale="0"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:pivotX="@fraction/menu_animation_pivot_x"
+        android:pivotY="100%"
+        android:toXScale="1"
+        android:toYScale="1" />
+    <alpha
+        android:duration="200"
+        android:fromAlpha="0"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:toAlpha="1" />
+    <translate
+        android:duration="200"
+        android:fromYDelta="@dimen/menu_negative_software_vertical_offset"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:toYDelta="0" />
+</set>

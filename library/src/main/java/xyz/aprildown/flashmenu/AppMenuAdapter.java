@@ -31,6 +31,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import xyz.aprildown.flashmenu.util.ApiCompatibilityUtils;
 import xyz.aprildown.flashmenu.util.BakedBezierInterpolator;
 import xyz.aprildown.flashmenu.util.LocalizationUtils;
+import xyz.aprildown.flashmenu.view.ChromeImageButton;
 import xyz.aprildown.flashmenu.view.ViewHighlighter;
 
 /**
@@ -121,7 +122,7 @@ class AppMenuAdapter extends BaseAdapter {
         if (position < 0) {
             throw new IllegalArgumentException("Invalid menu item position " + position);
         } else if (position >= mMenuItems.size()) {
-            throw new IllegalArgumentException("Too big menu item position " + position + "/" + mMenuItems.size())
+            throw new IllegalArgumentException("Too big menu item position " + position + "/" + mMenuItems.size());
         }
         return mMenuItems.get(position);
     }
@@ -189,7 +190,7 @@ class AppMenuAdapter extends BaseAdapter {
                 final MenuItem titleItem = item.getSubMenu().getItem(0);
                 final MenuItem subItem = item.getSubMenu().getItem(1);
 
-                TitleButtonMenuItemViewHolder holder = null;
+                TitleButtonMenuItemViewHolder holder;
                 if (convertView == null
                         || !(convertView.getTag() instanceof TitleButtonMenuItemViewHolder)) {
                     convertView = mInflater.inflate(R.layout.title_button_menu_item, parent, false);

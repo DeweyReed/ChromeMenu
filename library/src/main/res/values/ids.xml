@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App menu item custom tags -->
+    <item name="menu_item_enter_anim_id" type="id" />
+    <item name="menu_item_original_background" type="id" />
+</resources>

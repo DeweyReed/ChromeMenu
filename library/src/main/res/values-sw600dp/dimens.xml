@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Necessary to align the menu icon with the actual button. -->
+    <dimen name="menu_negative_software_vertical_offset">6dp</dimen>
+</resources>
