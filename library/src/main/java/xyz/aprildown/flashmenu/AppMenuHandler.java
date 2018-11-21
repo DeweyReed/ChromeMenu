@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package xyz.aprildown.flashmenu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import org.chromium.base.metrics.RecordUserAction;
-import org.chromium.chrome.R;
 
 import java.util.ArrayList;
 
@@ -53,7 +52,7 @@ public class AppMenuHandler {
                           int menuResourceId) {
         mActivity = activity;
         mDelegate = delegate;
-        mObservers = new ArrayList<AppMenuObserver>();
+        mObservers = new ArrayList<>();
         mMenuResourceId = menuResourceId;
         mHardwareButtonMenuAnchor = activity.findViewById(R.id.menu_anchor_stub);
         assert mHardwareButtonMenuAnchor != null
@@ -122,7 +121,9 @@ public class AppMenuHandler {
             isByPermanentButton = true;
         }
 
-        assert !(isByPermanentButton && startDragging);
+        if (isByPermanentButton && startDragging) {
+            throw new IllegalStateException("isByPermanentButton and startDragging");
+        }
 
         if (mMenu == null) {
             // Use a PopupMenu to create the Menu object. Note this is not the same as the

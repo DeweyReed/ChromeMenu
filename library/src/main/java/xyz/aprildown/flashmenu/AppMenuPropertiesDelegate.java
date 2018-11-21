@@ -2,16 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package xyz.aprildown.flashmenu;
 
 import android.content.Context;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.content.res.AppCompatResources;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +18,6 @@ import android.view.View.OnClickListener;
 import org.chromium.base.CommandLine;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.metrics.RecordHistogram;
-import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ChromeActivity;
 import org.chromium.chrome.browser.ChromeFeatureList;
 import org.chromium.chrome.browser.ChromeSwitches;

@@ -2,23 +2,23 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package xyz.aprildown.flashmenu;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import org.chromium.base.ApiCompatibilityUtils;
-import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ChromeActivity;
 import org.chromium.chrome.browser.bookmarks.BookmarkBridge;
 import org.chromium.chrome.browser.download.DownloadUtils;
 import org.chromium.chrome.browser.tab.Tab;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * A {@link LinearLayout} that displays a horizontal row of icons for page actions.

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package xyz.aprildown.flashmenu;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -12,8 +12,6 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -36,13 +34,15 @@ import org.chromium.base.AnimationFrameTimeHistogram;
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.SysUtils;
-import org.chromium.chrome.R;
 import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
 import org.chromium.chrome.browser.util.AccessibilityUtil;
 import org.chromium.chrome.browser.widget.ViewHighlighter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
 
 /**
  * Shows a popup of menuitems anchored to a host view. When a item is selected we call
@@ -87,12 +87,16 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         mMenu = menu;
 
         mItemRowHeight = itemRowHeight;
-        assert mItemRowHeight > 0;
+        if (mItemRowHeight <= 0) {
+            throw new IllegalArgumentException("ItemRowHeight must be positive");
+        }
 
         mHandler = handler;
 
         mItemDividerHeight = itemDividerHeight;
-        assert mItemDividerHeight >= 0;
+        if (mItemDividerHeight < 0) {
+            throw new IllegalArgumentException("ItemDividerHeight must be positive");
+        }
 
         mNegativeSoftwareVerticalOffset =
                 res.getDimensionPixelSize(R.dimen.menu_negative_software_vertical_offset);
@@ -178,21 +182,24 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
             mPopup.setWindowLayoutType(WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL);
         }
 
-        mPopup.setOnDismissListener(() -> {
-            if (anchorView instanceof ImageButton) {
-                anchorView.setSelected(false);
+        mPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if (anchorView instanceof ImageButton) {
+                    anchorView.setSelected(false);
+                }
+
+                if (mMenuItemEnterAnimator != null) mMenuItemEnterAnimator.cancel();
+
+                mHandler.appMenuDismissed();
+                mHandler.onMenuVisibilityChanged(false);
+
+                mPopup = null;
+                mAdapter = null;
+                mListView = null;
+                mFooterView = null;
+                mMenuItemEnterAnimator = null;
             }
-
-            if (mMenuItemEnterAnimator != null) mMenuItemEnterAnimator.cancel();
-
-            mHandler.appMenuDismissed();
-            mHandler.onMenuVisibilityChanged(false);
-
-            mPopup = null;
-            mAdapter = null;
-            mListView = null;
-            mFooterView = null;
-            mMenuItemEnterAnimator = null;
         });
 
         // Some OEMs don't actually let us change the background... but they still return the
@@ -321,7 +328,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
                 case Surface.ROTATION_270:
                     break;
                 default:
-                    assert false;
+                    throw new IllegalStateException("Unknown screenRotation: " + screenRotation);
                     break;
             }
             offsets[0] = horizontalOffset;
@@ -350,8 +357,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
 
         int xPos = anchorViewX + offsets[0];
         int yPos = anchorViewY + offsets[1];
-        int[] position = {xPos, yPos};
-        return position;
+        return new int[]{xPos, yPos};
     }
 
     /**

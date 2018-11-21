@@ -2,14 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package xyz.aprildown.flashmenu;
 
 import android.animation.TimeAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.support.annotation.IntDef;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -19,12 +18,13 @@ import android.widget.ListView;
 
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.metrics.RecordUserAction;
-import org.chromium.chrome.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.IntDef;
 
 /**
  * Handles the drag touch events on AppMenu that start from the menu button.
@@ -64,21 +64,24 @@ class AppMenuDragHelper {
         // If user is dragging and the popup ListView is too big to display at once,
         // mDragScrolling animator scrolls mPopup.getListView() automatically depending on
         // the user's touch position.
-        mDragScrolling.setTimeListener((animation, totalTime, deltaTime) -> {
-            if (mAppMenu.getListView() == null) return;
+        mDragScrolling.setTimeListener(new TimeAnimator.TimeListener() {
+            @Override
+            public void onTimeUpdate(TimeAnimator animation, long totalTime, long deltaTime) {
+                if (mAppMenu.getListView() == null) return;
 
-            // We keep both mDragScrollOffset and mDragScrollOffsetRounded because
-            // the actual scrolling is by the rounded value but at the same time we also
-            // want to keep the precise scroll value in float.
-            mDragScrollOffset += (deltaTime * 0.001f) * mDragScrollingVelocity;
-            int diff = Math.round(mDragScrollOffset - mDragScrollOffsetRounded);
-            mDragScrollOffsetRounded += diff;
-            mAppMenu.getListView().smoothScrollBy(diff, 0);
+                // We keep both mDragScrollOffset and mDragScrollOffsetRounded because
+                // the actual scrolling is by the rounded value but at the same time we also
+                // want to keep the precise scroll value in float.
+                mDragScrollOffset += (deltaTime * 0.001f) * mDragScrollingVelocity;
+                int diff = Math.round(mDragScrollOffset - mDragScrollOffsetRounded);
+                mDragScrollOffsetRounded += diff;
+                mAppMenu.getListView().smoothScrollBy(diff, 0);
 
-            // Force touch move event to highlight items correctly for the scrolled position.
-            if (!Float.isNaN(mLastTouchX) && !Float.isNaN(mLastTouchY)) {
-                menuItemAction(
-                        Math.round(mLastTouchX), Math.round(mLastTouchY), ItemAction.HIGHLIGHT);
+                // Force touch move event to highlight items correctly for the scrolled position.
+                if (!Float.isNaN(mLastTouchX) && !Float.isNaN(mLastTouchY)) {
+                    menuItemAction(
+                            Math.round(mLastTouchX), Math.round(mLastTouchY), ItemAction.HIGHLIGHT);
+                }
             }
         });
 
@@ -244,7 +247,7 @@ class AppMenuDragHelper {
             return false;
         }
 
-        ArrayList<View> itemViews = new ArrayList<View>();
+        ArrayList<View> itemViews = new ArrayList<>();
         for (int i = 0; i < listView.getChildCount(); ++i) {
             boolean hasImageButtons = false;
             if (listView.getChildAt(i) instanceof LinearLayout) {
@@ -279,7 +282,7 @@ class AppMenuDragHelper {
                     itemView.setPressed(false);
                     break;
                 default:
-                    assert false;
+                    throw new IllegalStateException("Wrong item action: " + action);
                     break;
             }
         }

@@ -2,15 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package xyz.aprildown.flashmenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.IntDef;
-import android.support.v7.content.res.AppCompatResources;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,7 +21,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.chromium.base.ApiCompatibilityUtils;
-import org.chromium.chrome.R;
 import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
 import org.chromium.chrome.browser.widget.ViewHighlighter;
 import org.chromium.ui.base.LocalizationUtils;
@@ -33,6 +30,9 @@ import org.chromium.ui.widget.ChromeImageButton;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
+
+import androidx.annotation.IntDef;
+import androidx.appcompat.content.res.AppCompatResources;
 
 /**
  * ListAdapter to customize the view of items in the list.
@@ -119,8 +119,11 @@ class AppMenuAdapter extends BaseAdapter {
     @Override
     public MenuItem getItem(int position) {
         if (position == ListView.INVALID_POSITION) return null;
-        assert position >= 0;
-        assert position < mMenuItems.size();
+        if (position < 0) {
+            throw new IllegalArgumentException("Invalid menu item position " + position);
+        } else if (position >= mMenuItems.size()) {
+            throw new IllegalArgumentException("Too big menu item position " + position + "/" + mMenuItems.size())
+        }
         return mMenuItems.get(position);
     }
 
@@ -148,7 +151,7 @@ class AppMenuAdapter extends BaseAdapter {
                 break;
             }
             case MenuItemType.UPDATE: {
-                CustomMenuItemViewHolder holder = null;
+                CustomMenuItemViewHolder holder;
                 if (convertView == null
                         || !(convertView.getTag() instanceof CustomMenuItemViewHolder)) {
                     holder = new CustomMenuItemViewHolder();
@@ -181,7 +184,9 @@ class AppMenuAdapter extends BaseAdapter {
                 convertView = createMenuItemRow(convertView, parent, item, 5);
                 break;
             case MenuItemType.TITLE_BUTTON: {
-                assert item.hasSubMenu();
+                if (!item.hasSubMenu()) {
+                    throw new IllegalStateException("No sub menu in a title button");
+                }
                 final MenuItem titleItem = item.getSubMenu().getItem(0);
                 final MenuItem subItem = item.getSubMenu().getItem(1);
 
@@ -209,7 +214,12 @@ class AppMenuAdapter extends BaseAdapter {
                 holder.title.setText(titleItem.getTitle());
                 holder.title.setEnabled(titleItem.isEnabled());
                 holder.title.setFocusable(titleItem.isEnabled());
-                holder.title.setOnClickListener(v -> mAppMenu.onItemClick(titleItem));
+                holder.title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAppMenu.onItemClick(titleItem);
+                    }
+                });
                 if (TextUtils.isEmpty(titleItem.getTitleCondensed())) {
                     holder.title.setContentDescription(null);
                 } else {
@@ -286,9 +296,19 @@ class AppMenuAdapter extends BaseAdapter {
             button.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_AUTO);
         }
 
-        button.setOnClickListener(v -> mAppMenu.onItemClick(item));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAppMenu.onItemClick(item);
+            }
+        });
 
-        button.setOnLongClickListener(v -> mAppMenu.onItemLongClick(item, v));
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return mAppMenu.onItemLongClick(item, v);
+            }
+        });
 
         if (mHighlightedItemId != null && item.getItemId() == mHighlightedItemId) {
             ViewHighlighter.turnOnHighlight(button, true);
@@ -316,7 +336,12 @@ class AppMenuAdapter extends BaseAdapter {
         // This will ensure that the item is not highlighted when selected.
         convertView.setEnabled(isEnabled);
 
-        convertView.setOnClickListener(v -> mAppMenu.onItemClick(item));
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAppMenu.onItemClick(item);
+            }
+        });
     }
 
     /**
@@ -385,8 +410,8 @@ class AppMenuAdapter extends BaseAdapter {
         animation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                for (int i = 0; i < maxViewsToAnimate; i++) {
-                    buttons[i].setAlpha(0.f);
+                for (ImageView button : buttons) {
+                    button.setAlpha(0.f);
                 }
             }
         });
