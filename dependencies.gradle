@@ -4,7 +4,7 @@ ext {
             android_gradle           : '3.2.1',
 
             compile_sdk              : 28,
-            min_sdk                  : 21,
+            min_sdk                  : 14,
             target_sdk               : 28,
 
             version_code             : 1,
@@ -22,8 +22,6 @@ ext {
 
             material                 : '1.0.0',
 
-            kotlin_anko              : '0.10.7',
-
             leak_cannary             : '1.6.2',
     ]
     libs = [
@@ -40,8 +38,6 @@ ext {
             androidx_ktx                 : "androidx.core:core-ktx:${versions.androidx_ktx}",
 
             material                     : "com.google.android.material:material:${versions.material}",
-
-            kotlin_anko_common           : "org.jetbrains.anko:anko-commons:${versions.kotlin_anko}",
 
             leak_cannary                 : "com.squareup.leakcanary:leakcanary-android:${versions.leak_cannary}",
             leak_cannary_no_op           : "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_cannary}",

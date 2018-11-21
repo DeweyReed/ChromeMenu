@@ -14,8 +14,6 @@ import android.view.View.OnTouchListener;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import org.chromium.base.metrics.RecordUserAction;
-
 /**
  * A helper class for a menu button to decide when to show the app menu and forward touch
  * events.
@@ -73,7 +71,7 @@ public class AppMenuButtonHelper extends AccessibilityDelegate implements OnTouc
             // Initial start dragging can be canceled in case if it was just single tap.
             // So we only record non-dragging here, and will deal with those dragging cases in
             // AppMenuDragHelper class.
-            if (!startDragging) RecordUserAction.record("MobileUsingMenuBySwButtonTap");
+            /*if (!startDragging) RecordUserAction.record("MobileUsingMenuBySwButtonTap");*/
 
             if (mOnAppMenuShownListener != null) {
                 mOnAppMenuShownListener.run();

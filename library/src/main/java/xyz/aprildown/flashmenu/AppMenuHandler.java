@@ -16,8 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import org.chromium.base.metrics.RecordUserAction;
-
 import java.util.ArrayList;
 
 /**
@@ -174,7 +172,7 @@ public class AppMenuHandler {
                 footerResourceId, headerResourceId, mHighlightMenuId, showFromBottom);
         mAppMenuDragHelper.onShow(startDragging);
         setMenuHighlight(null);
-        RecordUserAction.record("MobileMenuShow");
+        /*RecordUserAction.record("MobileMenuShow");*/
         return true;
     }
 

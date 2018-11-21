@@ -8,7 +8,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Checkable;
 
-import org.chromium.ui.widget.ChromeImageView;
+import xyz.aprildown.flashmenu.view.ChromeImageView;
 
 /**
  * An AppCompatImageView that supports the checkable state.

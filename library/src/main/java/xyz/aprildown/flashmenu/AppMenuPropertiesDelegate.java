@@ -39,6 +39,9 @@ import org.chromium.webapk.lib.client.WebApkValidator;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
+
 /**
  * App Menu helper that handles hiding and showing menu items based on activity state.
  */

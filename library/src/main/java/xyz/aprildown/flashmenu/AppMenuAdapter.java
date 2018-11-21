@@ -20,12 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
-import org.chromium.chrome.browser.widget.ViewHighlighter;
-import org.chromium.ui.base.LocalizationUtils;
-import org.chromium.ui.interpolators.BakedBezierInterpolator;
-import org.chromium.ui.widget.ChromeImageButton;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,6 +28,10 @@ import java.util.List;
 
 import androidx.annotation.IntDef;
 import androidx.appcompat.content.res.AppCompatResources;
+import xyz.aprildown.flashmenu.util.ApiCompatibilityUtils;
+import xyz.aprildown.flashmenu.util.BakedBezierInterpolator;
+import xyz.aprildown.flashmenu.util.LocalizationUtils;
+import xyz.aprildown.flashmenu.view.ViewHighlighter;
 
 /**
  * ListAdapter to customize the view of items in the list.
@@ -42,7 +41,7 @@ import androidx.appcompat.content.res.AppCompatResources;
  * is five), then you will need to:
  * <p>
  * 1) Update icon_row_menu_item.xml to have as many buttons as you need.
- * 2) Edit the {@link BUTTON_IDS} to reference your new button.
+ * 2) Edit the BUTTON_IDS to reference your new button.
  * 3) Hope that the icon row still fits on small phones.
  */
 class AppMenuAdapter extends BaseAdapter {
@@ -132,7 +131,7 @@ class AppMenuAdapter extends BaseAdapter {
         final MenuItem item = getItem(position);
         switch (getItemViewType(position)) {
             case MenuItemType.STANDARD: {
-                StandardMenuItemViewHolder holder = null;
+                StandardMenuItemViewHolder holder;
                 if (convertView == null
                         || !(convertView.getTag() instanceof StandardMenuItemViewHolder)) {
                     holder = new StandardMenuItemViewHolder();

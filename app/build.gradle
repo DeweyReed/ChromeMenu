@@ -34,6 +34,4 @@ dependencies {
 
     implementation libs.androidx_appcompat
     implementation libs.androidx_constraintlayout
-
-    implementation libs.kotlin_anko_common
 }

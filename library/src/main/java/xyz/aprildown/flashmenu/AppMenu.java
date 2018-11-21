@@ -5,7 +5,6 @@
 package xyz.aprildown.flashmenu;
 
 import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.res.Resources;
@@ -30,19 +29,18 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import org.chromium.base.AnimationFrameTimeHistogram;
-import org.chromium.base.ApiCompatibilityUtils;
-import org.chromium.base.ContextUtils;
-import org.chromium.base.SysUtils;
 import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
-import org.chromium.chrome.browser.util.AccessibilityUtil;
-import org.chromium.chrome.browser.widget.ViewHighlighter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
+import xyz.aprildown.flashmenu.util.AccessibilityUtil;
+import xyz.aprildown.flashmenu.util.ApiCompatibilityUtils;
+import xyz.aprildown.flashmenu.util.ContextUtils;
+import xyz.aprildown.flashmenu.util.SysUtils;
+import xyz.aprildown.flashmenu.view.ViewHighlighter;
 
 /**
  * Shows a popup of menuitems anchored to a host view. When a item is selected we call
@@ -70,8 +68,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
     private int mCurrentScreenRotation = -1;
     private boolean mIsByPermanentButton;
     private AnimatorSet mMenuItemEnterAnimator;
-    private AnimatorListener mAnimationHistogramRecorder = AnimationFrameTimeHistogram
-            .getAnimatorRecorder("WrenchMenu.OpeningAnimationFrameTimes");
+    /*private AnimatorListener mAnimationHistogramRecorder = AnimationFrameTimeHistogram
+            .getAnimatorRecorder("WrenchMenu.OpeningAnimationFrameTimes");*/
 
     /**
      * Creates and sets up the App Menu.
@@ -329,7 +327,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
                     break;
                 default:
                     throw new IllegalStateException("Unknown screenRotation: " + screenRotation);
-                    break;
             }
             offsets[0] = horizontalOffset;
             // The menu is displayed above the anchored view, so shift the menu up by the bottom
@@ -530,7 +527,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
             }
         }
 
-        mMenuItemEnterAnimator.addListener(mAnimationHistogramRecorder);
+        /*mMenuItemEnterAnimator.addListener(mAnimationHistogramRecorder);*/
         mMenuItemEnterAnimator.start();
     }
 

@@ -16,13 +16,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import org.chromium.base.metrics.RecordHistogram;
-import org.chromium.base.metrics.RecordUserAction;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.IntDef;
 
@@ -157,15 +153,15 @@ class AppMenuDragHelper {
         if (eventActionMasked == MotionEvent.ACTION_CANCEL) {
             mAppMenu.dismiss();
             return true;
-        } else if (eventActionMasked == MotionEvent.ACTION_UP) {
+        }/* else if (eventActionMasked == MotionEvent.ACTION_UP) {
             RecordHistogram.recordTimesHistogram(
                     "WrenchMenu.TouchDuration", timeSinceDown, TimeUnit.MILLISECONDS);
-        }
+        }*/
 
         mIsSingleTapCanceled |= timeSinceDown > mTapTimeout;
         mIsSingleTapCanceled |= !pointInView(button, event.getX(), event.getY(), mScaledTouchSlop);
         if (!mIsSingleTapCanceled && eventActionMasked == MotionEvent.ACTION_UP) {
-            RecordUserAction.record("MobileUsingMenuBySwButtonTap");
+            /*RecordUserAction.record("MobileUsingMenuBySwButtonTap");*/
             finishDragging();
         }
 
@@ -189,7 +185,7 @@ class AppMenuDragHelper {
         didPerformClick = menuItemAction(roundedRawX, roundedRawY, itemAction);
 
         if (eventActionMasked == MotionEvent.ACTION_UP && !didPerformClick) {
-            RecordUserAction.record("MobileUsingMenuBySwButtonDragging");
+            /*RecordUserAction.record("MobileUsingMenuBySwButtonDragging");*/
             mAppMenu.dismiss();
         } else if (eventActionMasked == MotionEvent.ACTION_MOVE) {
             // Auto scrolling on the top or the bottom of the listView.
@@ -273,7 +269,7 @@ class AppMenuDragHelper {
                     break;
                 case ItemAction.PERFORM:
                     if (shouldPerform) {
-                        RecordUserAction.record("MobileUsingMenuBySwButtonDragging");
+                        /*RecordUserAction.record("MobileUsingMenuBySwButtonDragging");*/
                         itemView.performClick();
                         didPerformClick = true;
                     }
@@ -283,7 +279,6 @@ class AppMenuDragHelper {
                     break;
                 default:
                     throw new IllegalStateException("Wrong item action: " + action);
-                    break;
             }
         }
         return didPerformClick;
