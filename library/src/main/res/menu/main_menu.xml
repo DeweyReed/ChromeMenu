@@ -34,10 +34,6 @@
             </menu>
         </item>
         <item
-            android:id="@+id/update_menu_id"
-            android:icon="@drawable/menu_update"
-            android:title="@string/menu_update" />
-        <item
             android:id="@+id/move_to_other_window_menu_id"
             android:title="@string/menu_move_to_other_window" />
         <item

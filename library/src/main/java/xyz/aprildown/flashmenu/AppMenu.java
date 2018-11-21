@@ -29,8 +29,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -364,9 +362,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
      */
     void onItemClick(MenuItem menuItem) {
         if (menuItem.isEnabled()) {
-            if (menuItem.getItemId() == R.id.update_menu_id) {
-                UpdateMenuItemHelper.getInstance().setMenuItemClicked();
-            }
             dismiss();
             mHandler.onOptionsItemSelected(menuItem);
         }
@@ -386,20 +381,21 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         Resources resources = context.getResources();
         final int itemId = menuItem.getItemId();
 
-        if (itemId == R.id.forward_menu_id) {
-            description = resources.getString(R.string.menu_forward);
-        } else if (itemId == R.id.bookmark_this_page_id) {
-            description = resources.getString(R.string.menu_bookmark);
-        } else if (itemId == R.id.offline_page_id) {
-            description = resources.getString(R.string.menu_download);
-        } else if (itemId == R.id.info_menu_id) {
-            description = resources.getString(R.string.menu_page_info);
-        } else if (itemId == R.id.reload_menu_id) {
-            description = (menuItem.getIcon().getLevel()
-                    == resources.getInteger(R.integer.reload_button_level_reload))
-                    ? resources.getString(R.string.menu_refresh)
-                    : resources.getString(R.string.menu_stop_refresh);
-        }
+        description = menuItem.getTitle().toString();
+//        if (itemId == R.id.forward_menu_id) {
+//            description = resources.getString(R.string.menu_forward);
+//        } else if (itemId == R.id.bookmark_this_page_id) {
+//            description = resources.getString(R.string.menu_bookmark);
+//        } else if (itemId == R.id.offline_page_id) {
+//            description = resources.getString(R.string.menu_download);
+//        } else if (itemId == R.id.info_menu_id) {
+//            description = resources.getString(R.string.menu_page_info);
+//        } else if (itemId == R.id.reload_menu_id) {
+//            description = (menuItem.getIcon().getLevel()
+//                    == resources.getInteger(R.integer.reload_button_level_reload))
+//                    ? resources.getString(R.string.menu_refresh)
+//                    : resources.getString(R.string.menu_stop_refresh);
+//        }
         return AccessibilityUtil.showAccessibilityToast(context, view, description);
     }
 

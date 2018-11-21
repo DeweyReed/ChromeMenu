@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.chromium.chrome.browser.omaha.UpdateMenuItemHelper;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
@@ -97,9 +95,7 @@ class AppMenuAdapter extends BaseAdapter {
         MenuItem item = getItem(position);
         int viewCount = item.hasSubMenu() ? item.getSubMenu().size() : 1;
 
-        if (item.getItemId() == R.id.update_menu_id) {
-            return MenuItemType.UPDATE;
-        } else if (viewCount == 2) {
+        if (viewCount == 2) {
             return MenuItemType.TITLE_BUTTON;
         } else if (viewCount == 3) {
             return MenuItemType.THREE_BUTTON;
@@ -148,30 +144,6 @@ class AppMenuAdapter extends BaseAdapter {
                     holder = (StandardMenuItemViewHolder) convertView.getTag();
                 }
                 setupStandardMenuItemViewHolder(holder, convertView, item);
-                break;
-            }
-            case MenuItemType.UPDATE: {
-                CustomMenuItemViewHolder holder;
-                if (convertView == null
-                        || !(convertView.getTag() instanceof CustomMenuItemViewHolder)) {
-                    holder = new CustomMenuItemViewHolder();
-                    convertView = mInflater.inflate(R.layout.update_menu_item, parent, false);
-                    holder.text = convertView.findViewById(R.id.menu_item_text);
-                    holder.image = convertView.findViewById(R.id.menu_item_icon);
-                    holder.summary = convertView.findViewById(R.id.menu_item_summary);
-                    convertView.setTag(holder);
-                    convertView.setTag(R.id.menu_item_enter_anim_id,
-                            buildStandardItemEnterAnimator(convertView, position));
-                    convertView.setTag(
-                            R.id.menu_item_original_background, convertView.getBackground());
-                } else {
-                    holder = (CustomMenuItemViewHolder) convertView.getTag();
-                }
-                setupStandardMenuItemViewHolder(holder, convertView, item);
-                boolean updateItemEnabled =
-                        UpdateMenuItemHelper.getInstance().decorateMenuItemViews(
-                                mInflater.getContext(), holder.text, holder.image, holder.summary);
-                convertView.setEnabled(updateItemEnabled);
                 break;
             }
             case MenuItemType.THREE_BUTTON:
@@ -457,7 +429,7 @@ class AppMenuAdapter extends BaseAdapter {
     }
 
     @IntDef({MenuItemType.STANDARD, MenuItemType.TITLE_BUTTON, MenuItemType.THREE_BUTTON,
-            MenuItemType.FOUR_BUTTON, MenuItemType.FIVE_BUTTON, MenuItemType.UPDATE})
+            MenuItemType.FOUR_BUTTON, MenuItemType.FIVE_BUTTON})
     @Retention(RetentionPolicy.SOURCE)
     private @interface MenuItemType {
         /**
@@ -465,31 +437,27 @@ class AppMenuAdapter extends BaseAdapter {
          */
         int STANDARD = 0;
         /**
-         * Menu item for updating Chrome; uses a custom layout.
-         */
-        int UPDATE = 1;
-        /**
          * Menu item that has two buttons, the first one is a title and the second one is an icon.
          * It is different from the regular menu item because it contains two separate buttons.
          */
-        int TITLE_BUTTON = 2;
+        int TITLE_BUTTON = 1;
         /**
          * Menu item that has three buttons. Every one of these buttons is displayed as an icon.
          */
-        int THREE_BUTTON = 3;
+        int THREE_BUTTON = 2;
         /**
          * Menu item that has four buttons. Every one of these buttons is displayed as an icon.
          */
-        int FOUR_BUTTON = 4;
+        int FOUR_BUTTON = 3;
         /**
          * Menu item that has five buttons. Every one of these buttons is displayed as an icon.
          */
-        int FIVE_BUTTON = 5;
+        int FIVE_BUTTON = 4;
         /**
          * The number of view types specified above.  If you add a view type you MUST increment
          * this.
          */
-        int NUM_ENTRIES = 6;
+        int NUM_ENTRIES = 5;
     }
 
     static class StandardMenuItemViewHolder {

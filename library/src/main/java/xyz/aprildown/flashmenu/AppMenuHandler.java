@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class AppMenuHandler {
     private final ArrayList<AppMenuObserver> mObservers;
     private final int mMenuResourceId;
-    private final View mHardwareButtonMenuAnchor;
+    //    private final View mHardwareButtonMenuAnchor;
     private final AppMenuPropertiesDelegate mDelegate;
     private final Activity mActivity;
     private AppMenu mAppMenu;
@@ -59,9 +59,9 @@ public class AppMenuHandler {
 //        android:layout_height="0px"
 //        android:layout_gravity="bottom|start"
 //        />
-        mHardwareButtonMenuAnchor = activity.findViewById(R.id.menu_anchor_stub);
-        assert mHardwareButtonMenuAnchor != null
-                : "Using AppMenu requires to have menu_anchor_stub view";
+//        mHardwareButtonMenuAnchor = activity.findViewById(R.id.menu_anchor_stub);
+//        assert mHardwareButtonMenuAnchor != null
+//                : "Using AppMenu requires to have menu_anchor_stub view";
     }
 
     /**
@@ -113,18 +113,18 @@ public class AppMenuHandler {
         boolean isByPermanentButton = false;
 
         int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
-        if (anchorView == null) {
-            // This fixes the bug where the bottom of the menu starts at the top of
-            // the keyboard, instead of overlapping the keyboard as it should.
-            int displayHeight = mActivity.getResources().getDisplayMetrics().heightPixels;
-            Rect rect = new Rect();
-            mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
-            int statusBarHeight = rect.top;
-            mHardwareButtonMenuAnchor.setY((displayHeight - statusBarHeight));
-
-            anchorView = mHardwareButtonMenuAnchor;
-            isByPermanentButton = true;
-        }
+//        if (anchorView == null) {
+//            // This fixes the bug where the bottom of the menu starts at the top of
+//            // the keyboard, instead of overlapping the keyboard as it should.
+//            int displayHeight = mActivity.getResources().getDisplayMetrics().heightPixels;
+//            Rect rect = new Rect();
+//            mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+//            int statusBarHeight = rect.top;
+//            mHardwareButtonMenuAnchor.setY((displayHeight - statusBarHeight));
+//
+//            anchorView = mHardwareButtonMenuAnchor;
+//            isByPermanentButton = true;
+//        }
 
         if (isByPermanentButton && startDragging) {
             throw new IllegalStateException("isByPermanentButton and startDragging");
