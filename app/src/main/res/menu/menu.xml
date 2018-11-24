@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/normal1"
+        android:icon="@drawable/ic_audiotrack_black_24dp"
+        android:title="Title" />
+    <item
+        android:id="@+id/normal2"
+        android:icon="@drawable/ic_audiotrack_black_24dp"
+        android:title="Title" />
+
+    <item
+        android:id="@+id/normal3"
+        android:title="Item 1" />
+
+    <item
+        android:id="@+id/menu2"
+        android:title="Item 1">
+        <menu>
+            <item
+                android:id="@+id/menu2_1"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu2_2"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu3"
+        android:title="Item 1">
+        <menu>
+            <item
+                android:id="@+id/menu3_1"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu3_2"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu3_3"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu4"
+        android:title="Item 1">
+        <menu>
+            <item
+                android:id="@+id/menu4_1"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu4_2"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu4_3"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu4_4"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu5"
+        android:title="Item 1">
+        <menu>
+            <item
+                android:id="@+id/menu5_1"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu5_2"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu5_3"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu5_4"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+
+            <item
+                android:id="@+id/menu5_5"
+                android:icon="@drawable/ic_audiotrack_black_24dp"
+                android:title="Title" />
+        </menu>
+    </item>
+</menu>

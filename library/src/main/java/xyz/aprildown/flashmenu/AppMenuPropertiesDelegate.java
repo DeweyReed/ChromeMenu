@@ -18,11 +18,6 @@ public interface AppMenuPropertiesDelegate {
     boolean shouldShowAppMenu();
 
     /**
-     * @return Whether the app menu for a web page should be shown.
-     */
-    boolean shouldShowPageMenu();
-
-    /**
      * Allows the delegate to show and hide items before the App Menu is shown. It is called every
      * time the menu is shown. This assumes that the provided menu contains all the items expected
      * in the application menu (i.e. that the main menu has been inflated into it).

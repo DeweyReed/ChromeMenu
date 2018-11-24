@@ -17,4 +17,6 @@
 
     <!-- Common alpha values -->
     <item name="default_disabled_alpha" format="float" type="dimen">0.38</item>
+
+    <dimen name="iph_pulse_baseline_radius">16dp</dimen>
 </resources>
