@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu.util;
+package xyz.aprildown.flashmenu;
 
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -18,14 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.ImageViewCompat;
 
-public class ApiCompatibilityUtils {
+class ApiCompatibilityUtils {
     /**
      * @see android.content.res.Resources#getDrawable(int id).
      * TODO(ltian): use {@link AppCompatResources} to parse drawable to prevent fail on
      * {@link VectorDrawable}. (http://crbug.com/792129)
      */
     @SuppressWarnings("deprecation")
-    public static Drawable getDrawable(Resources res, int id) throws Resources.NotFoundException {
+    static Drawable getDrawable(Resources res, int id) throws Resources.NotFoundException {
         StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskReads();
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -43,7 +43,7 @@ public class ApiCompatibilityUtils {
      *
      * @param view the View whose layout is being considered
      */
-    public static boolean isLayoutRtl(View view) {
+    static boolean isLayoutRtl(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return view.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         } else {
@@ -55,7 +55,7 @@ public class ApiCompatibilityUtils {
     /**
      * @see Configuration#getLayoutDirection()
      */
-    public static int getLayoutDirection(Configuration configuration) {
+    static int getLayoutDirection(Configuration configuration) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return configuration.getLayoutDirection();
         } else {
@@ -64,7 +64,7 @@ public class ApiCompatibilityUtils {
         }
     }
 
-    public static void setImageTintList(
+    static void setImageTintList(
             @NonNull ImageView view, @Nullable ColorStateList tintList) {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
             // Work around broken workaround in ImageViewCompat, see https://crbug.com/891609#c3.
@@ -81,7 +81,7 @@ public class ApiCompatibilityUtils {
      *
      * @param layers A list of drawables to use as layers in this new drawable.
      */
-    public static LayerDrawable createLayerDrawable(@NonNull Drawable[] layers) {
+    static LayerDrawable createLayerDrawable(@NonNull Drawable[] layers) {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
             return new LayerDrawableCompat(layers);
         }
@@ -105,9 +105,10 @@ public class ApiCompatibilityUtils {
      * Restores the bounds of layers after a mutation.
      */
     private static void restoreLayersBounds(LayerDrawable layerDrawable, Rect[] oldBounds) {
-        assert layerDrawable.getNumberOfLayers() == oldBounds.length;
-        for (int i = 0; i < layerDrawable.getNumberOfLayers(); i++) {
-            layerDrawable.getDrawable(i).setBounds(oldBounds[i]);
+        if (layerDrawable.getNumberOfLayers() == oldBounds.length) {
+            for (int i = 0; i < layerDrawable.getNumberOfLayers(); i++) {
+                layerDrawable.getDrawable(i).setBounds(oldBounds[i]);
+            }
         }
     }
 
@@ -115,7 +116,7 @@ public class ApiCompatibilityUtils {
      * @see android.content.res.Resources#getColor(int id).
      */
     @SuppressWarnings("deprecation")
-    public static int getColor(Resources res, int id) throws Resources.NotFoundException {
+    static int getColor(Resources res, int id) throws Resources.NotFoundException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return res.getColor(id, null);
         } else {

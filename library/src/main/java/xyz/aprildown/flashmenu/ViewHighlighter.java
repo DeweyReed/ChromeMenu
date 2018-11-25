@@ -1,32 +1,30 @@
-package xyz.aprildown.flashmenu.view;
+package xyz.aprildown.flashmenu;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 
-import xyz.aprildown.flashmenu.R;
-import xyz.aprildown.flashmenu.util.ApiCompatibilityUtils;
-import xyz.aprildown.flashmenu.util.ContextUtils;
-
-public class ViewHighlighter {
+class ViewHighlighter {
     /**
      * Create a highlight layer over the view.
      *
      * @param view     The view to be highlighted.
      * @param circular Whether the highlight should be a circle or rectangle.
      */
-    public static void turnOnHighlight(View view, boolean circular) {
+    static void turnOnHighlight(View view, boolean circular) {
         if (view == null) return;
+        final Context context = view.getContext();
 
         boolean highlighted = view.getTag(R.id.highlight_state) != null && (boolean) view.getTag(R.id.highlight_state);
         if (highlighted) return;
 
         PulseDrawable pulseDrawable = circular
-                ? PulseDrawable.createCircle(ContextUtils.getApplicationContext())
-                : PulseDrawable.createHighlight();
+                ? PulseDrawable.createCircle(context)
+                : PulseDrawable.createHighlight(context);
 
-        Resources resources = ContextUtils.getApplicationContext().getResources();
+        Resources resources = context.getResources();
         Drawable background = view.getBackground();
         if (background != null) {
             background = background.getConstantState().newDrawable(resources);
@@ -46,14 +44,14 @@ public class ViewHighlighter {
      *
      * @param view The associated view.
      */
-    public static void turnOffHighlight(View view) {
+    static void turnOffHighlight(View view) {
         if (view == null) return;
 
         boolean highlighted = view.getTag(R.id.highlight_state) != null && (boolean) view.getTag(R.id.highlight_state);
         if (!highlighted) return;
         view.setTag(R.id.highlight_state, false);
 
-        Resources resources = ContextUtils.getApplicationContext().getResources();
+        Resources resources = view.getContext().getResources();
         Drawable existingBackground = view.getBackground();
         if (existingBackground instanceof LayerDrawable) {
             LayerDrawable layerDrawable = (LayerDrawable) existingBackground;

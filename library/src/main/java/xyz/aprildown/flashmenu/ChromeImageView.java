@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu.view;
+package xyz.aprildown.flashmenu;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
  * A subclass of AppCompatImageView to add workarounds for bugs in Android Framework and Support
  * Library.
  */
-public class ChromeImageView extends AppCompatImageView {
+class ChromeImageView extends AppCompatImageView {
     public ChromeImageView(Context context) {
         super(context);
     }

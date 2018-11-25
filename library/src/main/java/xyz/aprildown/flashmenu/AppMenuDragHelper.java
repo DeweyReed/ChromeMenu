@@ -6,7 +6,7 @@ package xyz.aprildown.flashmenu;
 
 import android.animation.TimeAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.view.MotionEvent;
@@ -31,7 +31,6 @@ import androidx.annotation.IntDef;
 @SuppressLint("NewApi")
 class AppMenuDragHelper {
     private static final float AUTO_SCROLL_AREA_MAX_RATIO = 0.25f;
-    private final Activity mActivity;
     private final AppMenu mAppMenu;
     // Dragging related variables, i.e., menu showing initiated by touch down and drag to navigate.
     private final float mAutoScrollFullVelocity;
@@ -51,11 +50,10 @@ class AppMenuDragHelper {
     private boolean mIsSingleTapCanceled;
     private int mMenuButtonScreenCenterY;
 
-    AppMenuDragHelper(Activity activity, AppMenu appMenu, int itemRowHeight) {
-        mActivity = activity;
+    AppMenuDragHelper(Context context, AppMenu appMenu, int itemRowHeight) {
         mAppMenu = appMenu;
         mItemRowHeight = itemRowHeight;
-        Resources res = mActivity.getResources();
+        Resources res = context.getResources();
         mAutoScrollFullVelocity = res.getDimensionPixelSize(R.dimen.auto_scroll_full_velocity);
         // If user is dragging and the popup ListView is too big to display at once,
         // mDragScrolling animator scrolls mPopup.getListView() automatically depending on
@@ -85,7 +83,7 @@ class AppMenuDragHelper {
         // with ListPopupWindow#ForwardingListener implementation.
         mTapTimeout =
                 (ViewConfiguration.getTapTimeout() + ViewConfiguration.getLongPressTimeout()) / 2;
-        mScaledTouchSlop = ViewConfiguration.get(activity).getScaledTouchSlop();
+        mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     /**
@@ -168,7 +166,7 @@ class AppMenuDragHelper {
         // After this line, drag scrolling is happening.
         if (!mDragScrolling.isRunning()) return false;
 
-        boolean didPerformClick = false;
+        boolean didPerformClick;
         @ItemAction
         int itemAction = ItemAction.CLEAR_HIGHLIGHT_ALL;
         switch (eventActionMasked) {

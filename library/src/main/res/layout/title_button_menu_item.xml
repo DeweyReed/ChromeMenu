@@ -39,7 +39,7 @@
         android:src="?android:attr/listChoiceIndicatorMultiple" />
 
     <!-- Displays an icon. -->
-    <xyz.aprildown.flashmenu.view.ChromeImageButton
+    <xyz.aprildown.flashmenu.ChromeImageButton
         android:id="@+id/button"
         android:layout_width="56dp"
         android:layout_height="match_parent"

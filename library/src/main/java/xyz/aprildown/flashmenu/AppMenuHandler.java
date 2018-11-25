@@ -110,7 +110,6 @@ public class AppMenuHandler {
     @SuppressLint("ResourceType")
     public boolean showAppMenu(View anchorView, boolean startDragging, boolean showFromBottom) {
         if (!mDelegate.shouldShowAppMenu() || isAppMenuShowing()) return false;
-        boolean isByPermanentButton = false;
 
         int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
 //        if (anchorView == null) {
@@ -125,10 +124,6 @@ public class AppMenuHandler {
 //            anchorView = mHardwareButtonMenuAnchor;
 //            isByPermanentButton = true;
 //        }
-
-        if (isByPermanentButton && startDragging) {
-            throw new IllegalStateException("isByPermanentButton and startDragging");
-        }
 
         if (mMenu == null) {
             // Use a PopupMenu to create the Menu object. Note this is not the same as the
@@ -175,7 +170,7 @@ public class AppMenuHandler {
         if (mDelegate.shouldShowHeader(appRect.height())) {
             headerResourceId = mDelegate.getHeaderResourceId();
         }
-        mAppMenu.show(wrapper, anchorView, isByPermanentButton, rotation, appRect, pt.y,
+        mAppMenu.show(wrapper, anchorView, rotation, appRect, pt.y,
                 footerResourceId, headerResourceId, mHighlightMenuId, showFromBottom);
         mAppMenuDragHelper.onShow(startDragging);
         setMenuHighlight(null);

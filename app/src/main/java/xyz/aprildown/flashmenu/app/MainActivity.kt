@@ -9,15 +9,12 @@ import xyz.aprildown.flashmenu.AppMenu
 import xyz.aprildown.flashmenu.AppMenuButtonHelper
 import xyz.aprildown.flashmenu.AppMenuHandler
 import xyz.aprildown.flashmenu.AppMenuPropertiesDelegate
-import xyz.aprildown.flashmenu.util.ContextUtils
 
 class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        ContextUtils.initApplicationContext(this)
 
         textView.setOnTouchListener(
             AppMenuButtonHelper(

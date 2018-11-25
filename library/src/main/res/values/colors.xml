@@ -2,7 +2,6 @@
 <resources>
 
     <color name="black_alpha_24">#3D000000</color>
-    <color name="modern_grey_100">#F1F3F4</color>
     <color name="modern_grey_700">#5F6368</color>
     <color name="modern_grey_800_alpha_38">#613C4043</color>
     <color name="modern_grey_900">#202124</color>

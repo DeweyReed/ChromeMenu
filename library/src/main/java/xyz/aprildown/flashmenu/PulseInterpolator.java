@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu.view;
+package xyz.aprildown.flashmenu;
 
 import android.view.animation.Interpolator;
 
@@ -6,7 +6,7 @@ import android.view.animation.Interpolator;
  * An {@link Interpolator} that pulses a value based on the passed in {@link Interpolator}.  The
  * pulse will fade in and out after a delay.
  */
-public class PulseInterpolator implements Interpolator {
+class PulseInterpolator implements Interpolator {
     private final Interpolator mInterpolator;
 
     /**
@@ -14,7 +14,7 @@ public class PulseInterpolator implements Interpolator {
      *
      * @param interpolator The {@link Interpolator} responsible for handling the fade out and in.
      */
-    public PulseInterpolator(Interpolator interpolator) {
+    PulseInterpolator(Interpolator interpolator) {
         mInterpolator = interpolator;
     }
 

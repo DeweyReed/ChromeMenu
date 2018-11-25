@@ -1,7 +1,6 @@
-package xyz.aprildown.flashmenu.view;
+package xyz.aprildown.flashmenu;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
@@ -16,17 +15,13 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.view.animation.PathInterpolatorCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import xyz.aprildown.flashmenu.R;
-import xyz.aprildown.flashmenu.util.ApiCompatibilityUtils;
-import xyz.aprildown.flashmenu.util.ContextUtils;
-import xyz.aprildown.flashmenu.util.MathUtils;
 
 /**
  * A custom {@link Drawable} that will animate a pulse using the {@link PulseInterpolator}.  Meant
  * to be created with a {@link Painter} that does the actual drawing work based on the pulse
  * interpolation value.
  */
-public class PulseDrawable extends Drawable implements Animatable {
+class PulseDrawable extends Drawable implements Animatable {
     private static final long PULSE_DURATION_MS = 2500;
     private static final long FRAME_RATE = 60;
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -50,9 +45,9 @@ public class PulseDrawable extends Drawable implements Animatable {
      * @param interpolator An {@link Interpolator} that defines how the pulse will fade in and out.
      * @param painter      The {@link Painter} that will be responsible for drawing the pulse.
      */
-    private PulseDrawable(Interpolator interpolator, Painter painter) {
+    private PulseDrawable(Interpolator interpolator, Painter painter, @ColorInt int color) {
         this(new PulseState(interpolator, painter));
-        setUseLightPulseColor(false);
+        setUseLightPulseColor(color);
     }
 
     private PulseDrawable(PulseState state) {
@@ -64,11 +59,11 @@ public class PulseDrawable extends Drawable implements Animatable {
      *
      * @return A new {@link PulseDrawable} instance.
      */
-    public static PulseDrawable createHighlight() {
+    static PulseDrawable createHighlight(Context context) {
         PulseDrawable.Painter painter = new PulseDrawable.Painter() {
             @Override
             public void modifyDrawable(PulseDrawable drawable, float interpolation) {
-                drawable.setAlpha((int) MathUtils.interpolate(12, 75, 1.f - interpolation));
+                drawable.setAlpha((int) interpolate(12, 75, 1.f - interpolation));
             }
 
             @Override
@@ -78,7 +73,11 @@ public class PulseDrawable extends Drawable implements Animatable {
             }
         };
 
-        return new PulseDrawable(new FastOutSlowInInterpolator(), painter);
+        @ColorInt
+        int color = ApiCompatibilityUtils.getColor(context.getResources(),
+                R.color.default_icon_color_blue);
+
+        return new PulseDrawable(new FastOutSlowInInterpolator(), painter, color);
     }
 
     /**
@@ -86,7 +85,7 @@ public class PulseDrawable extends Drawable implements Animatable {
      *
      * @return A new {@link PulseDrawable} instance.
      */
-    public static PulseDrawable createCircle(Context context) {
+    static PulseDrawable createCircle(Context context) {
         final int startingPulseRadiusPx =
                 context.getResources().getDimensionPixelSize(R.dimen.iph_pulse_baseline_radius);
 
@@ -104,41 +103,34 @@ public class PulseDrawable extends Drawable implements Animatable {
 
                 float minRadiusPx = Math.min(startingPulseRadiusPx, maxAvailRadiusPx);
                 float maxRadiusPx = Math.min(startingPulseRadiusPx * 1.2f, maxAvailRadiusPx);
-                float radius = MathUtils.interpolate(minRadiusPx, maxRadiusPx, interpolation);
+                float radius = interpolate(minRadiusPx, maxRadiusPx, interpolation);
 
                 canvas.drawCircle(bounds.exactCenterX(), bounds.exactCenterY(), radius, paint);
             }
         };
 
+        @ColorInt
+        int color = ApiCompatibilityUtils.getColor(context.getResources(),
+                R.color.default_icon_color_blue);
+
         PulseDrawable drawable =
-                new PulseDrawable(PathInterpolatorCompat.create(.8f, 0.f, .6f, 1.f), painter);
+                new PulseDrawable(PathInterpolatorCompat.create(.8f, 0.f, .6f, 1.f),
+                        painter, color);
         drawable.setAlpha(76);
         return drawable;
     }
 
     /**
-     * Whether or not to use a light or dark color for the pulse.
+     * Moves {@code value} forward to {@code target} based on {@code speed}.
+     *
+     * @param value  The current value.
+     * @param target The target value.
+     * @param speed  How far to move {@code value} to {@code target}.  0 doesn't move it at all.  1
+     *               moves it to {@code target}.
+     * @return The new interpolated value.
      */
-    public void setUseLightPulseColor(boolean useLightPulseColor) {
-        Resources resources = ContextUtils.getApplicationContext().getResources();
-
-        @ColorInt
-        int color = ApiCompatibilityUtils.getColor(resources,
-                useLightPulseColor ? R.color.modern_grey_100 : R.color.default_icon_color_blue);
-        if (mState.color == color) return;
-
-        int alpha = getAlpha();
-        mState.color = mState.drawColor = color;
-        setAlpha(alpha);
-        invalidateSelf();
-    }
-
-    /**
-     * How much to inset the bounds of this {@link Drawable} by.
-     */
-    public void setInset(int left, int top, int right, int bottom) {
-        mInset.set(left, top, right, bottom);
-        if (!mOriginalBounds.isEmpty()) setBounds(mOriginalBounds);
+    private static float interpolate(float value, float target, float speed) {
+        return (value + (target - value) * speed);
     }
 
     // Animatable implementation.
@@ -275,41 +267,49 @@ public class PulseDrawable extends Drawable implements Animatable {
     }
 
     /**
+     * Whether or not to use a light or dark color for the pulse.
+     */
+    private void setUseLightPulseColor(@ColorInt int color) {
+        if (mState.color == color) return;
+
+        int alpha = getAlpha();
+        mState.color = mState.drawColor = color;
+        setAlpha(alpha);
+        invalidateSelf();
+    }
+
+    /**
      * The {@link ConstantState} subclass for this {@link PulseDrawable}.
      */
     private static final class PulseState extends ConstantState {
         // Current Paint State.
         /**
-         * The current color, including alpha, to draw.
-         */
-        public int drawColor;
-
-        /**
-         * The original color to draw (will not include updates from calls to setAlpha()).
-         */
-        public int color;
-
-        // Current Animation State
-        /**
-         * The time from {@link SystemClock#uptimeMillis} that this animation started at.
-         */
-        public long startTime;
-
-        /**
-         * The current progress from 0 to 1 of the pulse.
-         */
-        public float progress;
-
-        /**
          * The {@link Interpolator} that makes the pulse and generates the progress.
          */
-        public Interpolator interpolator;
-
+        final Interpolator interpolator;
         /**
          * The {@link Painter} object that is responsible for modifying and drawing this
          * {@link PulseDrawable}.
          */
-        public Painter painter;
+        final Painter painter;
+
+        // Current Animation State
+        /**
+         * The current color, including alpha, to draw.
+         */
+        int drawColor;
+        /**
+         * The original color to draw (will not include updates from calls to setAlpha()).
+         */
+        int color;
+        /**
+         * The time from {@link SystemClock#uptimeMillis} that this animation started at.
+         */
+        long startTime;
+        /**
+         * The current progress from 0 to 1 of the pulse.
+         */
+        float progress;
 
         PulseState(Interpolator interpolator, Painter painter) {
             this.interpolator = new PulseInterpolator(interpolator);
@@ -324,6 +324,8 @@ public class PulseDrawable extends Drawable implements Animatable {
 
             interpolator = other.interpolator;
             painter = other.painter;
+
+            progress = other.progress;
         }
 
         @Override
