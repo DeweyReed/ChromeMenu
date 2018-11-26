@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 
-apply plugin: 'kotlin-android'
-
 android {
     compileSdkVersion versions.compile_sdk
     defaultConfig {
