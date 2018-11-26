@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu.app
+package xyz.aprildown.chromemenu.app
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
@@ -18,6 +18,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = ApplicationProvider.getApplicationContext<Context>()
-        assertEquals("xyz.aprildown.flashmenu.app", appContext.packageName)
+        assertEquals("xyz.aprildown.chromemenu.app", appContext.packageName)
     }
 }

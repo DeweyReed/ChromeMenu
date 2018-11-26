@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu;
+package xyz.aprildown.chromemenu;
 
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;

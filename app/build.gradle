@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion versions.compile_sdk
     defaultConfig {
-        applicationId "xyz.aprildown.flashmenu.app"
+        applicationId "xyz.aprildown.chromemenu.app"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
         versionCode versions.version_code

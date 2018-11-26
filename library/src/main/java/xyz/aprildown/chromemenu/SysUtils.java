@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu;
+package xyz.aprildown.chromemenu;
 
 import android.os.Build;
 import android.os.StrictMode;

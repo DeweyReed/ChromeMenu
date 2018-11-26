@@ -1,13 +1,13 @@
-package xyz.aprildown.flashmenu.app
+package xyz.aprildown.chromemenu.app
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import xyz.aprildown.flashmenu.AbstractAppMenuPropertiesDelegate
-import xyz.aprildown.flashmenu.AppMenuButtonHelper
-import xyz.aprildown.flashmenu.AppMenuHandler
+import xyz.aprildown.chromemenu.AbstractAppMenuPropertiesDelegate
+import xyz.aprildown.chromemenu.AppMenuButtonHelper
+import xyz.aprildown.chromemenu.AppMenuHandler
 
 class MainActivity : AppCompatActivity() {
 

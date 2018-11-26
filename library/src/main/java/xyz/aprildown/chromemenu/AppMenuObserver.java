@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package xyz.aprildown.flashmenu;
+package xyz.aprildown.chromemenu;
 
 /**
  * Allows monitoring of application menu actions.

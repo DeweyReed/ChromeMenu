@@ -1,4 +1,4 @@
-package xyz.aprildown.flashmenu.app
+package xyz.aprildown.chromemenu.app
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
