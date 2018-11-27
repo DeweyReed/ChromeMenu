@@ -26,13 +26,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':library')
     implementation libs.kotlin_stdlib_jdk7
-
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx_test_core
-    androidTestImplementation libs.androidx_test_junit
-    androidTestImplementation libs.androidx_test_runner
-    androidTestImplementation libs.androidx_test_espresso
-
     implementation libs.androidx_appcompat
-    implementation libs.androidx_constraintlayout
 }

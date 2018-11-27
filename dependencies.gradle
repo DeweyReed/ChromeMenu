@@ -12,32 +12,14 @@ ext {
 
             kotlin                   : '1.3.10',
 
-            androidx_test            : '1.1.0',
-            androidx_test_espresso   : '3.1.0',
-
-            androidx                 : '1.0.0',
             androidx_appcompat       : '1.0.2',
-            androidx_constraintlayout: '2.0.0-alpha2',
-            androidx_ktx             : '1.0.0',
-
-            material                 : '1.0.0',
 
             leak_cannary             : '1.6.2',
     ]
     libs = [
             kotlin_stdlib_jdk7           : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
 
-            junit                        : "junit:junit:4.12",
-            androidx_test_core           : "androidx.test:core:1.0.0",
-            androidx_test_junit          : "androidx.test.ext:junit:1.0.0",
-            androidx_test_runner         : "androidx.test:runner:${versions.androidx_test}",
-            androidx_test_espresso       : "androidx.test.espresso:espresso-core:${versions.androidx_test_espresso}",
-
             androidx_appcompat           : "androidx.appcompat:appcompat:${versions.androidx_appcompat}",
-            androidx_constraintlayout    : "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}",
-            androidx_ktx                 : "androidx.core:core-ktx:${versions.androidx_ktx}",
-
-            material                     : "com.google.android.material:material:${versions.material}",
 
             leak_cannary                 : "com.squareup.leakcanary:leakcanary-android:${versions.leak_cannary}",
             leak_cannary_no_op           : "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_cannary}",
