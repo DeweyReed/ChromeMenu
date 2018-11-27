@@ -7,6 +7,8 @@ package xyz.aprildown.chromemenu;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDelegate {
     @Override
     public boolean shouldShowAppMenu() {
@@ -14,8 +16,7 @@ public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDeleg
     }
 
     @Override
-    public void prepareMenu(Menu menu) {
-
+    public void prepareMenu(@NonNull Menu menu) {
     }
 
     @Override
@@ -39,12 +40,10 @@ public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDeleg
     }
 
     @Override
-    public void onHeaderViewInflated(AppMenu appMenu, View view) {
-
+    public void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
     }
 
     @Override
-    public void onFooterViewInflated(AppMenu appMenu, View view) {
-
+    public void onFooterViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
     }
 }

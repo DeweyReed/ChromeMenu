@@ -7,6 +7,8 @@ package xyz.aprildown.chromemenu;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 /**
  * App Menu helper that handles hiding and showing menu items based on activity state.
  */
@@ -24,7 +26,7 @@ public interface AppMenuPropertiesDelegate {
      *
      * @param menu Menu that will be used as the source for the App Menu pop up.
      */
-    void prepareMenu(Menu menu);
+    void prepareMenu(@NonNull Menu menu);
 
     /**
      * @return Resource layout id for the footer if there should be one. O otherwise. The footer
@@ -62,7 +64,7 @@ public interface AppMenuPropertiesDelegate {
      * @param view    The view that was inflated.
      * @param appMenu The menu the view is inside of.
      */
-    void onHeaderViewInflated(AppMenu appMenu, View view);
+    void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view);
 
     /**
      * A notification that the footer view has finished inflating.
@@ -70,5 +72,5 @@ public interface AppMenuPropertiesDelegate {
      * @param view    The view that was inflated.
      * @param appMenu The menu the view is inside of.
      */
-    void onFooterViewInflated(AppMenu appMenu, View view);
+    void onFooterViewInflated(@NonNull AppMenu appMenu, @NonNull View view);
 }
