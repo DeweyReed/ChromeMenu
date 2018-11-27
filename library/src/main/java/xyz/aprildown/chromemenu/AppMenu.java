@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.IdRes;
-import androidx.annotation.Nullable;
 
 /**
  * Shows a popup of menuitems anchored to a host view. When a item is selected we call
@@ -59,7 +58,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
     private ListView mListView;
     private AppMenuAdapter mAdapter;
     private AppMenuHandler mHandler;
-    private View mFooterView;
     private boolean mIsByPermanentButton;
     private AnimatorSet mMenuItemEnterAnimator;
     /*private AnimatorListener mAnimationHistogramRecorder = AnimationFrameTimeHistogram
@@ -169,14 +167,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
 
         // Cause the Adapter to re-populate the View.
         mListView.getAdapter().getView(index, view, mListView);
-    }
-
-    /**
-     * @return The footer view for the menu or null if one has not been set.
-     */
-    @Nullable
-    public View getFooterView() {
-        return mFooterView;
     }
 
     private int[] getPopupPosition(int screenRotation, Rect appRect, Rect padding, View anchorView,
@@ -293,7 +283,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
                 mPopup = null;
                 mAdapter = null;
                 mListView = null;
-                mFooterView = null;
                 mMenuItemEnterAnimator = null;
             }
         });
@@ -443,13 +432,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         return mListView;
     }
 
-    /**
-     * @return The menu instance inside of this class.
-     */
-    public Menu getMenu() {
-        return mMenu;
-    }
-
     private int setMenuHeight(int numMenuItems, Rect appDimensions, int screenHeight, Rect padding,
                               int footerHeight, int headerHeight, View anchorView) {
         int menuHeight;
@@ -516,13 +498,12 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
     private int inflateFooter(
             int footerResourceId, View contentView, int menuWidth, Integer highlightedItemId) {
         if (footerResourceId == 0) {
-            mFooterView = null;
             return 0;
         }
 
         ViewStub footerStub = contentView.findViewById(R.id.app_menu_footer_stub);
         footerStub.setLayoutResource(footerResourceId);
-        mFooterView = footerStub.inflate();
+        View mFooterView = footerStub.inflate();
 
         int widthMeasureSpec = MeasureSpec.makeMeasureSpec(menuWidth, MeasureSpec.EXACTLY);
         int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
