@@ -329,7 +329,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         mAdapter = new AppMenuAdapter(
                 this, menuItems, LayoutInflater.from(context), highlightedItemId);
 
-        ViewGroup contentView =
+        @SuppressLint("InflateParams") ViewGroup contentView =
                 (ViewGroup) LayoutInflater.from(context).inflate(R.layout.app_menu_layout, null);
         mListView = contentView.findViewById(R.id.app_menu_list);
 

@@ -27,7 +27,10 @@ class ViewHighlighter {
         Resources resources = context.getResources();
         Drawable background = view.getBackground();
         if (background != null) {
-            background = background.getConstantState().newDrawable(resources);
+            Drawable.ConstantState state = background.getConstantState();
+            if (state != null) {
+                background = state.newDrawable(resources);
+            }
         }
 
         LayerDrawable drawable = ApiCompatibilityUtils.createLayerDrawable(background == null
@@ -56,8 +59,12 @@ class ViewHighlighter {
         if (existingBackground instanceof LayerDrawable) {
             LayerDrawable layerDrawable = (LayerDrawable) existingBackground;
             if (layerDrawable.getNumberOfLayers() >= 2) {
-                view.setBackground(
-                        layerDrawable.getDrawable(0).getConstantState().newDrawable(resources));
+                Drawable.ConstantState state = layerDrawable.getDrawable(0).getConstantState();
+                if (state == null) {
+                    view.setBackground(null);
+                    return;
+                }
+                view.setBackground(state.newDrawable(resources));
             } else {
                 view.setBackground(null);
             }

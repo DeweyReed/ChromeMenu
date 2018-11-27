@@ -108,7 +108,7 @@ public class AppMenuHandler {
      */
     // TODO(crbug.com/635567): Fix this properly.
     @SuppressLint("ResourceType")
-    public boolean showAppMenu(View anchorView, boolean startDragging, boolean showFromBottom) {
+    boolean showAppMenu(View anchorView, boolean startDragging, boolean showFromBottom) {
         if (!mDelegate.shouldShowAppMenu() || isAppMenuShowing()) return false;
 
         int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
@@ -203,7 +203,7 @@ public class AppMenuHandler {
     /**
      * Requests to hide the App Menu.
      */
-    public void hideAppMenu() {
+    void hideAppMenu() {
         if (mAppMenu != null && mAppMenu.isShowing()) mAppMenu.dismiss();
     }
 
