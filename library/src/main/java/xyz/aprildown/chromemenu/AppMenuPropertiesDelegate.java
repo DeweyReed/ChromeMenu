@@ -29,11 +29,12 @@ public interface AppMenuPropertiesDelegate {
     void prepareMenu(@NonNull Menu menu);
 
     /**
-     * @return Resource layout id for the footer if there should be one. O otherwise. The footer
-     * is shown at a fixed position at the bottom the app menu. It is always visible and
-     * overlays other app menu items if necessary.
+     * Determines whether the header should be shown based on the maximum available menu height.
+     *
+     * @param maxMenuHeight The maximum available height for the menu to draw.
+     * @return Whether the header, as specified in getHeaderView(), should be shown.
      */
-    int getFooterResourceId();
+    boolean shouldShowHeader(int maxMenuHeight);
 
     /**
      * @return The resource ID for a layout the be used as the app menu header if there should be
@@ -41,6 +42,15 @@ public interface AppMenuPropertiesDelegate {
      * will be scrolled off as the menu scrolls.
      */
     int getHeaderResourceId();
+
+
+    /**
+     * A notification that the header view has finished inflating.
+     *
+     * @param view    The view that was inflated.
+     * @param appMenu The menu the view is inside of.
+     */
+    void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view);
 
     /**
      * Determines whether the footer should be shown based on the maximum available menu height.
@@ -51,20 +61,11 @@ public interface AppMenuPropertiesDelegate {
     boolean shouldShowFooter(int maxMenuHeight);
 
     /**
-     * Determines whether the header should be shown based on the maximum available menu height.
-     *
-     * @param maxMenuHeight The maximum available height for the menu to draw.
-     * @return Whether the header, as specified in getHeaderView(), should be shown.
+     * @return Resource layout id for the footer if there should be one. O otherwise. The footer
+     * is shown at a fixed position at the bottom the app menu. It is always visible and
+     * overlays other app menu items if necessary.
      */
-    boolean shouldShowHeader(int maxMenuHeight);
-
-    /**
-     * A notification that the header view has finished inflating.
-     *
-     * @param view    The view that was inflated.
-     * @param appMenu The menu the view is inside of.
-     */
-    void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view);
+    int getFooterResourceId();
 
     /**
      * A notification that the footer view has finished inflating.

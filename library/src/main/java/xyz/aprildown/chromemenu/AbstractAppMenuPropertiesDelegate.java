@@ -20,8 +20,8 @@ public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDeleg
     }
 
     @Override
-    public int getFooterResourceId() {
-        return 0;
+    public boolean shouldShowHeader(int maxMenuHeight) {
+        return false;
     }
 
     @Override
@@ -30,17 +30,17 @@ public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDeleg
     }
 
     @Override
+    public void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
+    }
+
+    @Override
     public boolean shouldShowFooter(int maxMenuHeight) {
         return false;
     }
 
     @Override
-    public boolean shouldShowHeader(int maxMenuHeight) {
-        return false;
-    }
-
-    @Override
-    public void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
+    public int getFooterResourceId() {
+        return 0;
     }
 
     @Override
