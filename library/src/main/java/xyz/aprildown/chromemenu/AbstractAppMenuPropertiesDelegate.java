@@ -5,6 +5,7 @@
 package xyz.aprildown.chromemenu;
 
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -45,5 +46,9 @@ public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDeleg
 
     @Override
     public void onFooterViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
+    }
+
+    @Override
+    public void onMenuItemClicked(@NonNull MenuItem item) {
     }
 }

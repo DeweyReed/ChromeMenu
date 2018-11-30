@@ -38,7 +38,7 @@ import androidx.annotation.IdRes;
 
 /**
  * Shows a popup of menuitems anchored to a host view. When a item is selected we call
- * Activity.onOptionsItemSelected with the appropriate MenuItem.
+ * AppMenuPropertiesDelegate.onMenuItemClicked with the appropriate MenuItem.
  * - Only visible MenuItems are shown.
  * - Disabled items are grayed out.
  */

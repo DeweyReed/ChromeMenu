@@ -5,6 +5,7 @@
 package xyz.aprildown.chromemenu;
 
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -74,4 +75,11 @@ public interface AppMenuPropertiesDelegate {
      * @param appMenu The menu the view is inside of.
      */
     void onFooterViewInflated(@NonNull AppMenu appMenu, @NonNull View view);
+
+    /**
+     * Handles menu click events.
+     *
+     * @param item The clicked menuItem
+     */
+    void onMenuItemClicked(@NonNull MenuItem item);
 }

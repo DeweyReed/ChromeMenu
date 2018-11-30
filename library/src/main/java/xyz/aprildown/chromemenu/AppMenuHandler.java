@@ -226,7 +226,7 @@ public class AppMenuHandler {
     }
 
     void onOptionsItemSelected(MenuItem item) {
-        mActivity.onOptionsItemSelected(item);
+        mDelegate.onMenuItemClicked(item);
     }
 
     /**

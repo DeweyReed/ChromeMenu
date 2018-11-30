@@ -31,11 +31,6 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         btnAdvanced.setOnTouchListener(helper)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        Toast.makeText(this, item?.title?.toString(), Toast.LENGTH_SHORT).show()
-        return true
-    }
-
     override fun shouldShowAppMenu(): Boolean = true
 
     private val iconRes = arrayOf(
@@ -110,5 +105,9 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         view.setOnClickListener {
             Toast.makeText(this, "Footer", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onMenuItemClicked(item: MenuItem) {
+        Toast.makeText(this, item.title.toString(), Toast.LENGTH_SHORT).show()
     }
 }
