@@ -28,6 +28,8 @@ import java.util.List;
 
 import androidx.annotation.IntDef;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.MenuItemCompat;
+import androidx.core.widget.ImageViewCompat;
 
 /**
  * ListAdapter to customize the view of items in the list.
@@ -142,6 +144,7 @@ class AppMenuAdapter extends BaseAdapter {
         // resets drawable to default level.
         int currentLevel = item.getIcon().getLevel();
         button.setImageDrawable(item.getIcon());
+        ImageViewCompat.setImageTintList(button, MenuItemCompat.getIconTintList(item));
         item.getIcon().setLevel(currentLevel);
 
         if (item.isChecked()) {
