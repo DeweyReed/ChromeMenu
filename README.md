@@ -29,12 +29,23 @@ I love this design. It significantly improves the efficiency of using an app. So
 
 1. Handle click events
 
-    All events are sent to activity's `onOptionsItemSelected`. So override it in the activity.
+    ~~All events are sent to activity's `onOptionsItemSelected`. So override it in the activity.~~
 
-    ```Kotlin
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        ...
-    }
-    ```
+    From 0.0.2, click events are handled in the listener's `onMenuItemClicked`
 
 1. Check the sample for more customization.
+
+## More Usage
+
+- Change menu width
+
+    Add this line to `dimens.xml`:
+
+    ```XML
+    <!-- 256dp is the original width -->
+    <dimen name="menu_width">258dp</dimen>
+    ```
+
+## Hmm...
+
+If you wish to try to the original version from chromium, check out the `from_chrome` tag. After this tag, I've been adding extra code to make this library easier to use.
