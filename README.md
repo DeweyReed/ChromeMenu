@@ -15,7 +15,7 @@ I love this design. It significantly improves the efficiency of using an app. So
 
 1. Install dependency
 
-    `implementation 'xyz.aprildown:chrome-menu:0.0.1'`
+    `implementation 'xyz.aprildown:chrome-menu:0.0.2'`
 
 1. Set up touch listener
 
