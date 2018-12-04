@@ -3,7 +3,7 @@
 [![Download](https://api.bintray.com/packages/reedreed/maven/chrome-menu/images/download.svg)](https://bintray.com/reedreed/maven/chrome-menu/_latestVersion)
 [![API](https://img.shields.io/badge/API-17%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=17)
 
-The menu from [Chromium](https://github.com/chromium/chromium) Android. It can do this:
+The menu from [Chromium Android appmenu](https://github.com/chromium/chromium/tree/master/chrome/android/java/src/org/chromium/chrome/browser/appmenu). It can do this:
 
 ![Example GIF](https://github.com/DeweyReed/ChromeMenu/blob/master/images/example.gif?raw=true)
 
