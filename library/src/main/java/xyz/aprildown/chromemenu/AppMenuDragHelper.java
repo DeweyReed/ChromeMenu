@@ -54,7 +54,7 @@ class AppMenuDragHelper {
         mAppMenu = appMenu;
         mItemRowHeight = itemRowHeight;
         Resources res = context.getResources();
-        mAutoScrollFullVelocity = res.getDimensionPixelSize(R.dimen.auto_scroll_full_velocity);
+        mAutoScrollFullVelocity = res.getDimensionPixelSize(R.dimen.cm_auto_scroll_full_velocity);
         // If user is dragging and the popup ListView is too big to display at once,
         // mDragScrolling animator scrolls mPopup.getListView() automatically depending on
         // the user's touch position.

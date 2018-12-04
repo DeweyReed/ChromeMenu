@@ -3,6 +3,6 @@
      found in the LICENSE file.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="@dimen/default_disabled_alpha" android:color="@color/default_text_color" android:state_enabled="false" />
-    <item android:color="@color/default_text_color" />
+    <item android:alpha="@dimen/cm_default_disabled_alpha" android:color="@color/cm_default_text_color" android:state_enabled="false" />
+    <item android:color="@color/cm_default_text_color" />
 </selector>

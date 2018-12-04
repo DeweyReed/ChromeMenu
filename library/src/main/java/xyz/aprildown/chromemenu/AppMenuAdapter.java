@@ -38,13 +38,13 @@ import androidx.core.widget.ImageViewCompat;
  * If, for some unfathomable reason, you need to add yet another icon to the row (the current max
  * is five), then you will need to:
  * <p>
- * 1) Update icon_row_menu_item.xml to have as many buttons as you need.
+ * 1) Update cm_icon_row_menu_item.xml to have as many buttons as you need.
  * 2) Edit the BUTTON_IDS to reference your new button.
  * 3) Hope that the icon row still fits on small phones.
  */
 class AppMenuAdapter extends BaseAdapter {
     /**
-     * IDs of all of the buttons in icon_row_menu_item.xml.
+     * IDs of all of the buttons in cm_icon_row_menu_item.xml.
      */
     private static final int[] BUTTON_IDS = {
             R.id.button_one,
@@ -134,7 +134,7 @@ class AppMenuAdapter extends BaseAdapter {
         // The checkbox must be tinted to make Android consistently style it across OS versions.
         // http://crbug.com/571445
         ApiCompatibilityUtils.setImageTintList(button,
-                AppCompatResources.getColorStateList(button.getContext(), R.color.checkbox_tint));
+                AppCompatResources.getColorStateList(button.getContext(), R.color.cm_checkbox_tint));
 
         setupMenuButton(button, item);
     }
@@ -150,7 +150,7 @@ class AppMenuAdapter extends BaseAdapter {
         if (item.isChecked()) {
             ApiCompatibilityUtils.setImageTintList(button,
                     AppCompatResources.getColorStateList(
-                            button.getContext(), R.color.blue_mode_tint));
+                            button.getContext(), R.color.cm_blue_mode_tint));
         }
 
         setupMenuButton(button, item);
@@ -251,14 +251,14 @@ class AppMenuAdapter extends BaseAdapter {
                 if (convertView == null
                         || !(convertView.getTag() instanceof StandardMenuItemViewHolder)) {
                     holder = new StandardMenuItemViewHolder();
-                    convertView = mInflater.inflate(R.layout.menu_item, parent, false);
+                    convertView = mInflater.inflate(R.layout.cm_menu_item, parent, false);
                     holder.text = convertView.findViewById(R.id.menu_item_text);
                     holder.image = convertView.findViewById(R.id.menu_item_icon);
                     convertView.setTag(holder);
-                    convertView.setTag(R.id.menu_item_enter_anim_id,
+                    convertView.setTag(R.id.cm_menu_item_enter_anim_id,
                             buildStandardItemEnterAnimator(convertView, position));
                     convertView.setTag(
-                            R.id.menu_item_original_background, convertView.getBackground());
+                            R.id.cm_menu_item_original_background, convertView.getBackground());
                 } else {
                     holder = (StandardMenuItemViewHolder) convertView.getTag();
                 }
@@ -284,20 +284,20 @@ class AppMenuAdapter extends BaseAdapter {
                 TitleButtonMenuItemViewHolder holder;
                 if (convertView == null
                         || !(convertView.getTag() instanceof TitleButtonMenuItemViewHolder)) {
-                    convertView = mInflater.inflate(R.layout.title_button_menu_item, parent, false);
+                    convertView = mInflater.inflate(R.layout.cm_title_button_menu_item, parent, false);
 
                     holder = new TitleButtonMenuItemViewHolder();
                     holder.title = convertView.findViewById(R.id.title);
                     holder.checkbox = convertView.findViewById(R.id.checkbox);
                     holder.button = (ChromeImageButton) convertView.findViewById(R.id.button);
                     holder.button.setTag(
-                            R.id.menu_item_original_background, holder.button.getBackground());
+                            R.id.cm_menu_item_original_background, holder.button.getBackground());
 
                     convertView.setTag(holder);
-                    convertView.setTag(R.id.menu_item_enter_anim_id,
+                    convertView.setTag(R.id.cm_menu_item_enter_anim_id,
                             buildStandardItemEnterAnimator(convertView, position));
                     convertView.setTag(
-                            R.id.menu_item_original_background, convertView.getBackground());
+                            R.id.cm_menu_item_original_background, convertView.getBackground());
                 } else {
                     holder = (TitleButtonMenuItemViewHolder) convertView.getTag();
                 }
@@ -403,15 +403,15 @@ class AppMenuAdapter extends BaseAdapter {
                 || !(convertView.getTag() instanceof RowItemViewHolder)
                 || ((RowItemViewHolder) convertView.getTag()).buttons.length != numItems) {
             holder = new RowItemViewHolder(numItems);
-            convertView = mInflater.inflate(R.layout.icon_row_menu_item, parent, false);
-            convertView.setTag(R.id.menu_item_original_background, convertView.getBackground());
+            convertView = mInflater.inflate(R.layout.cm_icon_row_menu_item, parent, false);
+            convertView.setTag(R.id.cm_menu_item_original_background, convertView.getBackground());
 
             // Save references to all the buttons.
             for (int i = 0; i < numItems; i++) {
                 ImageButton view = convertView.findViewById(BUTTON_IDS[i]);
                 holder.buttons[i] = view;
                 holder.buttons[i].setTag(
-                        R.id.menu_item_original_background, holder.buttons[i].getBackground());
+                        R.id.cm_menu_item_original_background, holder.buttons[i].getBackground());
             }
 
             // Remove unused menu items.
@@ -420,7 +420,7 @@ class AppMenuAdapter extends BaseAdapter {
             }
 
             convertView.setTag(holder);
-            convertView.setTag(R.id.menu_item_enter_anim_id,
+            convertView.setTag(R.id.cm_menu_item_enter_anim_id,
                     buildIconItemEnterAnimator(holder.buttons));
         } else {
             holder = (RowItemViewHolder) convertView.getTag();

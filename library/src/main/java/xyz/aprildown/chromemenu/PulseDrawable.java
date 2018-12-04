@@ -75,7 +75,7 @@ class PulseDrawable extends Drawable implements Animatable {
 
         @ColorInt
         int color = ApiCompatibilityUtils.getColor(context.getResources(),
-                R.color.default_icon_color_blue);
+                R.color.cm_default_icon_color_blue);
 
         return new PulseDrawable(new FastOutSlowInInterpolator(), painter, color);
     }
@@ -87,7 +87,7 @@ class PulseDrawable extends Drawable implements Animatable {
      */
     static PulseDrawable createCircle(Context context) {
         final int startingPulseRadiusPx =
-                context.getResources().getDimensionPixelSize(R.dimen.iph_pulse_baseline_radius);
+                context.getResources().getDimensionPixelSize(R.dimen.cm_iph_pulse_baseline_radius);
 
         PulseDrawable.Painter painter = new PulseDrawable.Painter() {
             @Override
@@ -111,7 +111,7 @@ class PulseDrawable extends Drawable implements Animatable {
 
         @ColorInt
         int color = ApiCompatibilityUtils.getColor(context.getResources(),
-                R.color.default_icon_color_blue);
+                R.color.cm_default_icon_color_blue);
 
         PulseDrawable drawable =
                 new PulseDrawable(PathInterpolatorCompat.create(.8f, 0.f, .6f, 1.f),

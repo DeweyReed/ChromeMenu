@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Custom Menu dimensions -->
-    <dimen name="menu_width">258dp</dimen>
-    <dimen name="menu_negative_software_vertical_offset">0dp</dimen>
+    <dimen name="cm_menu_width">258dp</dimen>
+    <dimen name="cm_menu_negative_software_vertical_offset">0dp</dimen>
 
     <!-- The amount to fade the edges of the menu to indicate more content is available
      via scrolling. -->
-    <dimen name="menu_vertical_fade_distance">15dp</dimen>
-    <dimen name="menu_negative_vertical_offset_not_top_anchored">8dp</dimen>
+    <dimen name="cm_menu_vertical_fade_distance">15dp</dimen>
+    <dimen name="cm_menu_negative_vertical_offset_not_top_anchored">8dp</dimen>
 
     <!-- Menu button dragging related dimensions -->
-    <dimen name="auto_scroll_full_velocity">500dp</dimen>
+    <dimen name="cm_auto_scroll_full_velocity">500dp</dimen>
 
     <!-- Common text sizes -->
-    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="cm_text_size_large">16sp</dimen>
 
     <!-- Common alpha values -->
-    <item name="default_disabled_alpha" format="float" type="dimen">0.38</item>
+    <item name="cm_default_disabled_alpha" format="float" type="dimen">0.38</item>
 
-    <dimen name="iph_pulse_baseline_radius">16dp</dimen>
+    <dimen name="cm_iph_pulse_baseline_radius">16dp</dimen>
 </resources>

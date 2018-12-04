@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="OverflowMenuTheme" parent="Theme.AppCompat.Light">
+    <style name="CmOverflowMenuTheme" parent="Theme.AppCompat.Light">
         <item name="android:popupBackground">@null</item>
         <item name="android:listDivider">@null</item>
         <item name="android:listPreferredItemHeightSmall">48dp</item>
-        <item name="android:textAppearance">@style/BlackTitle1</item>
-        <item name="colorControlHighlight">@color/control_highlight_color</item>
+        <item name="android:textAppearance">@style/CmBlackTitle1</item>
+        <item name="colorControlHighlight">@color/cm_control_highlight_color</item>
     </style>
 
-    <style name="OverflowMenuAnim">
-        <item name="android:windowEnterAnimation">@anim/menu_enter</item>
-        <item name="android:windowExitAnimation">@anim/menu_exit</item>
+    <style name="CmOverflowMenuAnim">
+        <item name="android:windowEnterAnimation">@anim/cm_menu_enter</item>
+        <item name="android:windowExitAnimation">@anim/cm_menu_exit</item>
     </style>
 
-    <style name="OverflowMenuAnimBottom">
-        <item name="android:windowEnterAnimation">@anim/menu_enter_from_bottom</item>
-        <item name="android:windowExitAnimation">@anim/menu_exit_from_bottom</item>
+    <style name="CmOverflowMenuAnimBottom">
+        <item name="android:windowEnterAnimation">@anim/cm_menu_enter_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/cm_menu_exit_from_bottom</item>
     </style>
 
-    <style name="OverflowMenuButton">
+    <style name="CmOverflowMenuButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">?attr/listChoiceBackgroundIndicator</item>
         <item name="android:scaleType">center</item>
-        <item name="tint">@color/dark_mode_tint</item>
+        <item name="tint">@color/cm_dark_mode_tint</item>
     </style>
 
-    <style name="AppMenuItem">
+    <style name="CmAppMenuItem">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:background">?attr/listChoiceBackgroundIndicator</item>
     </style>
 
-    <style name="BlackTitle1">
-        <item name="android:textColor">@color/default_text_color_list</item>
-        <item name="android:textSize">@dimen/text_size_large</item>
+    <style name="CmBlackTitle1">
+        <item name="android:textColor">@color/cm_default_text_color_list</item>
+        <item name="android:textSize">@dimen/cm_text_size_large</item>
     </style>
 </resources>

@@ -10,21 +10,21 @@
 
     <xyz.aprildown.chromemenu.ChromeImageButton
         android:id="@+id/button_one"
-        style="@style/OverflowMenuButton" />
+        style="@style/CmOverflowMenuButton" />
 
     <xyz.aprildown.chromemenu.ChromeImageButton
         android:id="@+id/button_two"
-        style="@style/OverflowMenuButton" />
+        style="@style/CmOverflowMenuButton" />
 
     <xyz.aprildown.chromemenu.ChromeImageButton
         android:id="@+id/button_three"
-        style="@style/OverflowMenuButton" />
+        style="@style/CmOverflowMenuButton" />
 
     <xyz.aprildown.chromemenu.ChromeImageButton
         android:id="@+id/button_four"
-        style="@style/OverflowMenuButton" />
+        style="@style/CmOverflowMenuButton" />
 
     <xyz.aprildown.chromemenu.ChromeImageButton
         android:id="@+id/button_five"
-        style="@style/OverflowMenuButton" />
+        style="@style/CmOverflowMenuButton" />
 </LinearLayout>

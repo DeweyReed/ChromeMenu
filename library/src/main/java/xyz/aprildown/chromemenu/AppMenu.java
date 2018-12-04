@@ -89,10 +89,10 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         }
 
         mNegativeSoftwareVerticalOffset =
-                res.getDimensionPixelSize(R.dimen.menu_negative_software_vertical_offset);
-        mVerticalFadeDistance = res.getDimensionPixelSize(R.dimen.menu_vertical_fade_distance);
+                res.getDimensionPixelSize(R.dimen.cm_menu_negative_software_vertical_offset);
+        mVerticalFadeDistance = res.getDimensionPixelSize(R.dimen.cm_menu_vertical_fade_distance);
         mNegativeVerticalOffsetNotTopAnchored =
-                res.getDimensionPixelSize(R.dimen.menu_negative_vertical_offset_not_top_anchored);
+                res.getDimensionPixelSize(R.dimen.cm_menu_negative_vertical_offset_not_top_anchored);
 
         mTempLocation = new int[2];
     }
@@ -295,9 +295,9 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         // Need to explicitly set the background here.  Relying on it being set in the style caused
         // an incorrectly drawn background.
         mPopup.setBackgroundDrawable(
-                ApiCompatibilityUtils.getDrawable(context.getResources(), R.drawable.popup_bg));
+                ApiCompatibilityUtils.getDrawable(context.getResources(), R.drawable.cm_popup_bg));
         mPopup.setAnimationStyle(
-                showFromBottom ? R.style.OverflowMenuAnimBottom : R.style.OverflowMenuAnim);
+                showFromBottom ? R.style.CmOverflowMenuAnimBottom : R.style.CmOverflowMenuAnim);
 
         // Turn off window animations for low end devices.
         if (SysUtils.isLowEndDevice()) mPopup.setAnimationStyle(0);
@@ -305,7 +305,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         Rect bgPadding = new Rect();
         mPopup.getBackground().getPadding(bgPadding);
 
-        int menuWidth = context.getResources().getDimensionPixelSize(R.dimen.menu_width);
+        int menuWidth = context.getResources().getDimensionPixelSize(R.dimen.cm_menu_width);
         int popupWidth = menuWidth + bgPadding.left + bgPadding.right;
 
         mPopup.setWidth(popupWidth);
@@ -330,7 +330,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
                 this, menuItems, LayoutInflater.from(context), highlightedItemId);
 
         @SuppressLint("InflateParams") ViewGroup contentView =
-                (ViewGroup) LayoutInflater.from(context).inflate(R.layout.app_menu_layout, null);
+                (ViewGroup) LayoutInflater.from(context).inflate(R.layout.cm_app_menu_layout, null);
         mListView = contentView.findViewById(R.id.app_menu_list);
 
         int footerHeight =
@@ -481,7 +481,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         ViewGroup list = mListView;
         for (int i = 0; i < list.getChildCount(); i++) {
             View view = list.getChildAt(i);
-            Object animatorObject = view.getTag(R.id.menu_item_enter_anim_id);
+            Object animatorObject = view.getTag(R.id.cm_menu_item_enter_anim_id);
             if (animatorObject != null) {
                 if (builder == null) {
                     builder = mMenuItemEnterAnimator.play((Animator) animatorObject);

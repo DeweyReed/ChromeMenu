@@ -10,7 +10,7 @@
         android:fromXScale="0"
         android:fromYScale="0"
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-        android:pivotX="@fraction/menu_animation_pivot_x"
+        android:pivotX="@fraction/cm_menu_animation_pivot_x"
         android:pivotY="100%"
         android:toXScale="1"
         android:toYScale="1" />
@@ -21,7 +21,7 @@
         android:toAlpha="1" />
     <translate
         android:duration="200"
-        android:fromYDelta="@dimen/menu_negative_software_vertical_offset"
+        android:fromYDelta="@dimen/cm_menu_negative_software_vertical_offset"
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
         android:toYDelta="0" />
 </set>

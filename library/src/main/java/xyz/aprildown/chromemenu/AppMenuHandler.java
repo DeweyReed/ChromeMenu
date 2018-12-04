@@ -134,7 +134,7 @@ public class AppMenuHandler {
         }
         mDelegate.prepareMenu(mMenu);
 
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(mActivity, R.style.OverflowMenuTheme);
+        ContextThemeWrapper wrapper = new ContextThemeWrapper(mActivity, R.style.CmOverflowMenuTheme);
 
         if (mAppMenu == null) {
             TypedArray a = wrapper.obtainStyledAttributes(new int[]

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Menu Animation Constants -->
-    <item name="menu_animation_pivot_x" format="fraction" type="fraction">95%</item>
+    <item name="cm_menu_animation_pivot_x" format="fraction" type="fraction">95%</item>
 </resources>

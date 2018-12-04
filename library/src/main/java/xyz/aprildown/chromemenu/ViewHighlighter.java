@@ -17,7 +17,7 @@ class ViewHighlighter {
         if (view == null) return;
         final Context context = view.getContext();
 
-        boolean highlighted = view.getTag(R.id.highlight_state) != null && (boolean) view.getTag(R.id.highlight_state);
+        boolean highlighted = view.getTag(R.id.cm_highlight_state) != null && (boolean) view.getTag(R.id.cm_highlight_state);
         if (highlighted) return;
 
         PulseDrawable pulseDrawable = circular
@@ -37,7 +37,7 @@ class ViewHighlighter {
                 ? new Drawable[]{pulseDrawable}
                 : new Drawable[]{background, pulseDrawable});
         view.setBackground(drawable);
-        view.setTag(R.id.highlight_state, true);
+        view.setTag(R.id.cm_highlight_state, true);
 
         pulseDrawable.start();
     }
@@ -50,9 +50,9 @@ class ViewHighlighter {
     static void turnOffHighlight(View view) {
         if (view == null) return;
 
-        boolean highlighted = view.getTag(R.id.highlight_state) != null && (boolean) view.getTag(R.id.highlight_state);
+        boolean highlighted = view.getTag(R.id.cm_highlight_state) != null && (boolean) view.getTag(R.id.cm_highlight_state);
         if (!highlighted) return;
-        view.setTag(R.id.highlight_state, false);
+        view.setTag(R.id.cm_highlight_state, false);
 
         Resources resources = view.getContext().getResources();
         Drawable existingBackground = view.getBackground();
