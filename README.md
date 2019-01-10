@@ -15,7 +15,7 @@ I love this design. It significantly improves the efficiency of using an app. So
 
 1. Install dependency
 
-    `implementation 'xyz.aprildown:chrome-menu:0.0.2'`
+    `implementation 'xyz.aprildown:chrome-menu:0.1.0'`
 
 1. Set up touch listener
 
@@ -43,8 +43,14 @@ I love this design. It significantly improves the efficiency of using an app. So
 
     ```XML
     <!-- 256dp is the original width -->
-    <dimen name="menu_width">258dp</dimen>
+    <dimen name="cm_menu_width">258dp</dimen>
     ```
+
+## ChangeLog and Migration
+
+- 0.1.0
+
+    To set custom menu width, use `cm_menu_width` instead of the old `menu_width`.
 
 ## Hmm...
 
