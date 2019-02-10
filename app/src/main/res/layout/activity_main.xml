@@ -28,4 +28,10 @@
         android:cursorVisible="false"
         android:hint="Show Keyboard" />
 
+    <Button
+        android:id="@+id/btnMainNight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toggle Night" />
+
 </LinearLayout>

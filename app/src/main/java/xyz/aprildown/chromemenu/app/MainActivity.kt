@@ -8,6 +8,7 @@ import android.view.SubMenu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,6 +30,16 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         val handler = AppMenuHandler(this, this, R.menu.menu)
         val helper = AppMenuButtonHelper(handler)
         btnAdvanced.setOnTouchListener(helper)
+
+        btnMainNight.setOnClickListener {
+            val default = AppCompatDelegate.getDefaultNightMode()
+            if (default == AppCompatDelegate.MODE_NIGHT_YES) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            recreate()
+        }
     }
 
     override fun shouldShowAppMenu(): Boolean = true

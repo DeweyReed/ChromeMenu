@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cm_modern_primary_color">@color/cm_modern_grey_900</color>
+
+    <color name="cm_default_text_color">@color/cm_modern_grey_200</color>
+
+    <color name="cm_default_icon_color">@color/cm_modern_grey_200</color>
+    <color name="cm_default_icon_color_blue">@color/cm_modern_blue_300</color>
+
+    <color name="cm_light_active_color">@color/cm_modern_blue_300</color>
+</resources>
