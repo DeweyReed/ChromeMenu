@@ -15,7 +15,7 @@ I love this design. It significantly improves the efficiency of using an app. So
 
 1. Install dependency
 
-    `implementation 'xyz.aprildown:chrome-menu:0.1.0'`
+    `implementation 'xyz.aprildown:chrome-menu:0.1.1'`
 
 1. Set up touch listener
 
@@ -47,6 +47,13 @@ I love this design. It significantly improves the efficiency of using an app. So
     ```
 
 ## ChangeLog and Migration
+
+- 0.1.1
+
+    - Pull changes from chromium
+        - fffabbc: IPH : Set focus to highlighted menu item after opening app menu
+        - ead7304: Add common colors in night- and some initial clean up on themes
+    - Add proguard rules #1.
 
 - 0.1.0
 
