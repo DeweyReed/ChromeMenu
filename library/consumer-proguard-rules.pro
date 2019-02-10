@@ -1,0 +1,2 @@
+-dontwarn xyz.aprildown.chromemenu.AppMenuDragHelper$ItemAction
+-dontwarn xyz.aprildown.chromemenu.AppMenuAdapter$MenuItemType

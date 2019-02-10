@@ -9,6 +9,7 @@ android {
         targetSdkVersion versions.target_sdk
         versionCode versions.version_code
         versionName versions.version_name
+        consumerProguardFiles 'consumer-proguard-rules.pro'
     }
 
     resourcePrefix 'cm_'
