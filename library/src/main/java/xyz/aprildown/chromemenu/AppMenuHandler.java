@@ -39,6 +39,11 @@ public class AppMenuHandler {
     private Integer mHighlightMenuId;
 
     /**
+     * Whether the highlighted item should use a circle highlight or not.
+     */
+    private boolean mCircleHighlight;
+
+    /**
      * Constructs an AppMenuHandler object.
      *
      * @param activity       Activity that is using the AppMenu.
@@ -77,16 +82,25 @@ public class AppMenuHandler {
     }
 
     /**
+     * Clears the menu highlight.
+     */
+    public void clearMenuHighlight() {
+        setMenuHighlight(null, false);
+    }
+
+    /**
      * Calls attention to this menu and a particular item in it.  The menu will only stay
      * highlighted for one menu usage.  After that the highlight will be cleared.
      *
      * @param highlightItemId The id of a menu item to highlight or {@code null} to turn off the
      *                        highlight.
+     * @param circleHighlight Whether the highlighted item should use a circle highlight or not.
      */
-    public void setMenuHighlight(Integer highlightItemId) {
+    public void setMenuHighlight(Integer highlightItemId, boolean circleHighlight) {
         if (mHighlightMenuId == null && highlightItemId == null) return;
         if (mHighlightMenuId != null && mHighlightMenuId.equals(highlightItemId)) return;
         mHighlightMenuId = highlightItemId;
+        mCircleHighlight = circleHighlight;
         boolean highlighting = mHighlightMenuId != null;
         for (AppMenuObserver observer : mObservers) observer.onMenuHighlightChanged(highlighting);
     }
@@ -171,9 +185,10 @@ public class AppMenuHandler {
             headerResourceId = mDelegate.getHeaderResourceId();
         }
         mAppMenu.show(wrapper, anchorView, rotation, appRect, pt.y,
-                footerResourceId, headerResourceId, mHighlightMenuId, showFromBottom);
+                footerResourceId, headerResourceId, mHighlightMenuId, mCircleHighlight,
+                showFromBottom);
         mAppMenuDragHelper.onShow(startDragging);
-        setMenuHighlight(null);
+        clearMenuHighlight();
         /*RecordUserAction.record("MobileMenuShow");*/
         return true;
     }
