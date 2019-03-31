@@ -27,11 +27,7 @@ I love this design. It significantly improves the efficiency of using an app. So
 
     `listener` is an [AppMenuPropertiesDelegate](https://github.com/DeweyReed/ChromeMenu/blob/master/library/src/main/java/xyz/aprildown/chromemenu/AppMenuPropertiesDelegate.java#L15) interface or use its abstract version [AbstractAppMenuPropertiesDelegate()](https://github.com/DeweyReed/ChromeMenu/blob/master/library/src/main/java/xyz/aprildown/chromemenu/AbstractAppMenuPropertiesDelegate.java#L12)
 
-1. Handle click events
-
-    ~~All events are sent to activity's `onOptionsItemSelected`. So override it in the activity.~~
-
-    From 0.0.2, click events are handled in the listener's `onMenuItemClicked`
+    You can define header and footer and hijack menu items after they are created through the listener.
 
 1. Check the sample for more customization.
 
@@ -58,7 +54,3 @@ I love this design. It significantly improves the efficiency of using an app. So
 - 0.1.0
 
     To set custom menu width, use `cm_menu_width` instead of the old `menu_width`.
-
-## Hmm...
-
-If you wish to try to the original version from chromium, check out the `from_chrome` tag. After this tag, I've been adding extra code to make this library easier to use.
