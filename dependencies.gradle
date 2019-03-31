@@ -1,7 +1,7 @@
 ext {
     //noinspection SpellCheckingInspection
     versions = [
-            android_gradle           : '3.3.1',
+            android_gradle           : '3.3.2',
 
             compile_sdk              : 28,
             min_sdk                  : 17,
