@@ -1,6 +1,7 @@
 # ChromeMenu
 
 [![Download](https://api.bintray.com/packages/reedreed/maven/chrome-menu/images/download.svg)](https://bintray.com/reedreed/maven/chrome-menu/_latestVersion)
+[![JitPack](https://jitpack.io/v/xyz.aprildown/ChromeMenu.svg)](https://jitpack.io/#xyz.aprildown/ChromeMenu)
 [![API](https://img.shields.io/badge/API-17%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=17)
 
 The menu from [Chromium Android appmenu](https://github.com/chromium/chromium/tree/master/chrome/android/java/src/org/chromium/chrome/browser/appmenu). It can do this:
@@ -15,7 +16,27 @@ I love this design. It significantly improves the efficiency of using an app. So
 
 1. Install dependency
 
-    `implementation 'xyz.aprildown:chrome-menu:0.1.1'`
+    - Jcenter: `implementation 'xyz.aprildown:chrome-menu:0.1.1'`
+    - JitPack:
+
+        1. Add it in your root build.gradle at the end of repositories:
+
+            ```Groovy
+            allprojects {
+                repositories {
+                    ...
+                    maven { url 'https://jitpack.io' }
+                }
+            }
+            ``
+
+        2. Add the dependency
+
+            ```Groovy
+            dependencies {
+                implementation 'xyz.aprildown:ChromeMenu:0.1.1'
+            }
+            ```
 
 1. Set up touch listener
 
