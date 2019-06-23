@@ -27,4 +27,6 @@ dependencies {
     implementation project(':library')
     implementation libs.kotlin_stdlib_jdk7
     implementation libs.androidx_appcompat
+    implementation libs.androidx_constraintlayout
+    implementation libs.leak_cannary
 }
