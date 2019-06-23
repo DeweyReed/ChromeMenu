@@ -10,30 +10,26 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDelegate {
+
+    @Override
+    public void destroy() {
+    }
 
     @Override
     public void prepareMenu(@NonNull Menu menu) {
     }
 
+    @Nullable
     @Override
-    public boolean shouldShowHeader(int maxMenuHeight) {
-        return false;
+    public Bundle getBundleForMenuItem(@NonNull MenuItem item) {
+        return null;
     }
 
     @Override
-    public int getHeaderResourceId() {
-        return 0;
-    }
-
-    @Override
-    public void onHeaderViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
-    }
-
-    @Override
-    public boolean shouldShowFooter(int maxMenuHeight) {
-        return false;
+    public void onMenuDismissed() {
     }
 
     @Override
@@ -42,15 +38,25 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
     }
 
     @Override
-    public void onFooterViewInflated(@NonNull AppMenu appMenu, @NonNull View view) {
+    public int getHeaderResourceId() {
+        return 0;
     }
 
     @Override
-    public Bundle getBundleForMenuItem(MenuItem item) {
-        return null;
+    public boolean shouldShowFooter(int maxMenuHeight) {
+        return false;
     }
 
     @Override
-    public void onMenuDismissed() {
+    public boolean shouldShowHeader(int maxMenuHeight) {
+        return false;
+    }
+
+    @Override
+    public void onFooterViewInflated(@NonNull AppMenuHandlerInterface appMenuHandler, @NonNull View view) {
+    }
+
+    @Override
+    public void onHeaderViewInflated(@NonNull AppMenuHandlerInterface appMenuHandler, @NonNull View view) {
     }
 }

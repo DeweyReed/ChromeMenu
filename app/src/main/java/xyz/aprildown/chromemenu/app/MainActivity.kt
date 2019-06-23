@@ -21,13 +21,13 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val coordinator = AppMenuCoordinator(
+        val coordinator = AppMenuCoordinatorFactory.createAppMenuCoordinator(
             this,
-            object : AppMenuCoordinator.MenuButtonDelegate {
+            object : MenuButtonDelegate {
                 override fun getMenuButtonView(): View? = btnSimple
                 override fun isMenuFromBottom(): Boolean = false
             },
-            object : AppMenuCoordinator.AppMenuDelegate {
+            object : AppMenuDelegate {
                 override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
                     onMenuItemClicked(item)
                     return true
@@ -43,26 +43,31 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
             },
             window.decorView
         )
+
         btnSimple.setOnTouchListener(
-            AppMenuButtonHelper(coordinator.appMenuHandler)
+            coordinator.appMenuHandler.createAppMenuButtonHelper()
         )
 
-        val coordinator1 = AppMenuCoordinator(this, object : AppMenuCoordinator.MenuButtonDelegate {
-            override fun getMenuButtonView(): View? = btnSimple
-            override fun isMenuFromBottom(): Boolean = false
-        }, object : AppMenuCoordinator.AppMenuDelegate {
-            override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
-                onMenuItemClicked(item)
-                return true
-            }
+        val coordinator1 = AppMenuCoordinatorFactory.createAppMenuCoordinator(
+            this,
+            object : MenuButtonDelegate {
+                override fun getMenuButtonView(): View? = btnSimple
+                override fun isMenuFromBottom(): Boolean = false
+            },
+            object : AppMenuDelegate {
+                override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
+                    onMenuItemClicked(item)
+                    return true
+                }
 
-            override fun createAppMenuPropertiesDelegate(): AppMenuPropertiesDelegate =
-                this@MainActivity
+                override fun createAppMenuPropertiesDelegate(): AppMenuPropertiesDelegate =
+                    this@MainActivity
 
-            override fun shouldShowAppMenu(): Boolean = true
-        }, window.decorView)
-        val helper = AppMenuButtonHelper(coordinator1.appMenuHandler)
-        btnAdvanced.setOnTouchListener(helper)
+                override fun shouldShowAppMenu(): Boolean = true
+            },
+            window.decorView
+        )
+        btnAdvanced.setOnTouchListener(coordinator1.appMenuHandler.createAppMenuButtonHelper())
 
         btnMainNight.setOnClickListener {
             val default = AppCompatDelegate.getDefaultNightMode()
@@ -137,15 +142,18 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         return true
     }
 
-    override fun onHeaderViewInflated(appMenu: AppMenu, view: View) {
+    override fun destroy() {
+    }
+
+    override fun onFooterViewInflated(appMenuHandler: AppMenuHandlerInterface, view: View) {
         view.setOnClickListener {
-            Toast.makeText(this, "Header", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Footer", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onFooterViewInflated(appMenu: AppMenu, view: View) {
+    override fun onHeaderViewInflated(appMenuHandler: AppMenuHandlerInterface, view: View) {
         view.setOnClickListener {
-            Toast.makeText(this, "Footer", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Header", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -155,7 +163,7 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
 
     override fun getAppMenuLayoutId(): Int = R.menu.menu
 
-    override fun getBundleForMenuItem(item: MenuItem?): Bundle? = null
+    override fun getBundleForMenuItem(item: MenuItem): Bundle? = null
 
     override fun onMenuDismissed() = Unit
 }

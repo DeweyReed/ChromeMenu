@@ -31,10 +31,10 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.IdRes;
 
 /**
  * Shows a popup of menuitems anchored to a host view. When a item is selected we call
@@ -57,7 +57,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
     private PopupWindow mPopup;
     private ListView mListView;
     private AppMenuAdapter mAdapter;
-    private AppMenuHandler mHandler;
+    private AppMenuHandlerImpl mHandler;
     private boolean mIsByPermanentButton;
     private AnimatorSet mMenuItemEnterAnimator;
     /*private AnimatorListener mAnimationHistogramRecorder = AnimationFrameTimeHistogram
@@ -69,10 +69,10 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
      * @param menu              Original menu created by the framework.
      * @param itemRowHeight     Desired height for each app menu row.
      * @param itemDividerHeight Desired height for the divider between app menu items.
-     * @param handler           AppMenuHandler receives callbacks from AppMenu.
+     * @param handler           AppMenuHandlerImpl receives callbacks from AppMenu.
      * @param res               Resources object used to get dimensions and style attributes.
      */
-    AppMenu(Menu menu, int itemRowHeight, int itemDividerHeight, AppMenuHandler handler,
+    AppMenu(Menu menu, int itemRowHeight, int itemDividerHeight, AppMenuHandlerImpl handler,
             Resources res) {
         mMenu = menu;
 
@@ -236,7 +236,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
 
     /**
      * Creates and shows the app menu anchored to the specified view.
-     *  @param context             The context of the AppMenu (ensure the proper theme is set on
+     *
+     * @param context             The context of the AppMenu (ensure the proper theme is set on
      *                            this context).
      * @param anchorView          The anchor {@link View} of the {@link PopupWindow}.
      * @param screenRotation      Current device screen rotation.
@@ -253,8 +254,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
      *                            Can be {@code null} if no item should be highlighted.  Note that
      *                            {@code 0} is dedicated to custom menu items and can be declared
      *                            by external apps.
-     * @param circleHighlightItem   Whether the highlighted item should use a circle highlight or
-     *                              not.
+     * @param circleHighlightItem Whether the highlighted item should use a circle highlight or
+     *                            not.
      * @param showFromBottom      Whether the appearance animation should run from the bottom up.
      */
     void show(Context context, final View anchorView,

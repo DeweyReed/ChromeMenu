@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.View.AccessibilityDelegate;
-import android.view.View.OnTouchListener;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -21,102 +20,48 @@ import android.view.accessibility.AccessibilityNodeInfo;
  * Simply construct this class and pass the class instance to a menu button as TouchListener.
  * Then this class will handle everything regarding showing app menu for you.
  */
-public class AppMenuButtonHelper extends AccessibilityDelegate implements OnTouchListener {
-    private final AppMenuHandler mMenuHandler;
+class AppMenuButtonHelperImpl extends AccessibilityDelegate implements AppMenuButtonHelperInterface {
+    private final AppMenuHandlerImpl mMenuHandler;
     private Runnable mOnAppMenuShownListener;
     private boolean mIsTouchEventsBeingProcessed;
-    private boolean mShowMenuOnUp;
     private boolean mMenuShowsFromBottom;
     private Runnable mOnClickRunnable;
 
     /**
      * @param menuHandler MenuHandler implementation that can show and get the app menu.
      */
-    public AppMenuButtonHelper(AppMenuHandler menuHandler) {
+    AppMenuButtonHelperImpl(AppMenuHandlerImpl menuHandler) {
         mMenuHandler = menuHandler;
     }
 
-    /**
-     * @param showsFromBottom Whether the menu shows from the bottom by default.
-     */
+    // AppMenuButtonHelper implementation.
+
+    @Override
     public void setMenuShowsFromBottom(boolean showsFromBottom) {
         mMenuShowsFromBottom = showsFromBottom;
     }
 
-    /**
-     * @param onAppMenuShownListener This is called when the app menu is shown by this class.
-     */
+    @Override
     public void setOnAppMenuShownListener(Runnable onAppMenuShownListener) {
         mOnAppMenuShownListener = onAppMenuShownListener;
     }
 
-    /**
-     * @param showMenuOnUp Whether app menu should show on the up action.
-     *                     If false, the app menu will be shown on the down action.
-     */
-    public void setShowMenuOnUp(boolean showMenuOnUp) {
-        mShowMenuOnUp = showMenuOnUp;
-    }
-
-    /**
-     * Shows the app menu if it is not already shown.
-     *
-     * @param view           View that initiated showing this menu. Normally it is a menu button.
-     * @param startDragging  Whether dragging is started.
-     * @return Whether or not if the app menu is successfully shown.
-     */
-    private boolean showAppMenu(View view, boolean startDragging) {
-        if (!mMenuHandler.isAppMenuShowing()
-                && mMenuHandler.showAppMenu(view, startDragging, mMenuShowsFromBottom)) {
-            // Initial start dragging can be canceled in case if it was just single tap.
-            // So we only record non-dragging here, and will deal with those dragging cases in
-            // AppMenuDragHelper class.
-            /*if (!startDragging) RecordUserAction.record("MobileUsingMenuBySwButtonTap");*/
-
-            if (mOnAppMenuShownListener != null) {
-                mOnAppMenuShownListener.run();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return Whether app menu is active. That is, AppMenu is showing or menu button is consuming
-     * touch events to prepare AppMenu showing.
-     */
+    @Override
     public boolean isAppMenuActive() {
         return mIsTouchEventsBeingProcessed || mMenuHandler.isAppMenuShowing();
     }
 
-    /**
-     * Handle the key press event on a menu button.
-     *
-     * @param view View that received the enter key press event.
-     * @return Whether the app menu was shown as a result of this action.
-     */
+    @Override
     public boolean onEnterKeyPress(View view) {
         return showAppMenu(view, false);
     }
 
-    /**
-     * Set whether touch event is being processed and view is pressed on touch event.
-     *
-     * @param view         View that received a touch event.
-     * @param isActionDown Whether the touch event is a down action.
-     */
-    private void updateTouchEvent(View view, boolean isActionDown) {
-        mIsTouchEventsBeingProcessed = isActionDown;
-        view.setPressed(isActionDown);
+    @Override
+    public AccessibilityDelegate getAccessibilityDelegate() {
+        return this;
     }
 
-    /**
-     * Set a runnable for click events on the menu button. This runnable is triggered with the down
-     * motion event rather than click specifically. This is primarily used to track interaction with
-     * the menu button.
-     *
-     * @param clickRunnable The {@link Runnable} to be executed on a down event.
-     */
+    @Override
     public void setOnClickRunnable(Runnable clickRunnable) {
         mOnClickRunnable = clickRunnable;
     }
@@ -128,17 +73,14 @@ public class AppMenuButtonHelper extends AccessibilityDelegate implements OnTouc
 
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                if (!mShowMenuOnUp) {
-                    isTouchEventConsumed = true;
-                    updateTouchEvent(view, true);
-                    if (mOnClickRunnable != null) mOnClickRunnable.run();
-                    showAppMenu(view, true);
-                }
+                isTouchEventConsumed = true;
+                updateTouchEvent(view, true);
+                if (mOnClickRunnable != null) mOnClickRunnable.run();
+                showAppMenu(view, true);
                 break;
             case MotionEvent.ACTION_UP:
                 isTouchEventConsumed = true;
                 updateTouchEvent(view, false);
-                if (mShowMenuOnUp) showAppMenu(view, false);
                 break;
             case MotionEvent.ACTION_CANCEL:
                 isTouchEventConsumed = true;
@@ -157,6 +99,8 @@ public class AppMenuButtonHelper extends AccessibilityDelegate implements OnTouc
         return isTouchEventConsumed;
     }
 
+    // AccessibilityDelegate overrides
+
     @Override
     public boolean performAccessibilityAction(View host, int action, Bundle args) {
         if (action == AccessibilityNodeInfo.ACTION_CLICK) {
@@ -170,5 +114,35 @@ public class AppMenuButtonHelper extends AccessibilityDelegate implements OnTouc
             return true;
         }
         return super.performAccessibilityAction(host, action, args);
+    }
+
+    /**
+     * Shows the app menu if it is not already shown.
+     *
+     * @param view          View that initiated showing this menu. Normally it is a menu button.
+     * @param startDragging Whether dragging is started.
+     * @return Whether or not if the app menu is successfully shown.
+     */
+    private boolean showAppMenu(View view, boolean startDragging) {
+        if (!mMenuHandler.isAppMenuShowing()
+                && mMenuHandler.showAppMenu(view, startDragging, mMenuShowsFromBottom)) {
+
+            if (mOnAppMenuShownListener != null) {
+                mOnAppMenuShownListener.run();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Set whether touch event is being processed and view is pressed on touch event.
+     *
+     * @param view         View that received a touch event.
+     * @param isActionDown Whether the touch event is a down action.
+     */
+    private void updateTouchEvent(View view, boolean isActionDown) {
+        mIsTouchEventsBeingProcessed = isActionDown;
+        view.setPressed(isActionDown);
     }
 }

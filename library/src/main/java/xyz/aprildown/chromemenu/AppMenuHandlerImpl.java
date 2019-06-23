@@ -23,17 +23,17 @@ import java.util.ArrayList;
  * Object responsible for handling the creation, showing, hiding of the AppMenu and notifying the
  * AppMenuObservers about these actions.
  */
-public class AppMenuHandler {
-    private final ArrayList<AppMenuObserver> mObservers;
-    private final int mMenuResourceId;
-    //    private final View mHardwareButtonMenuAnchor;
-    private final AppMenuPropertiesDelegate mDelegate;
+class AppMenuHandlerImpl implements AppMenuHandlerInterface {
+    private final AppMenuDelegate mAppMenuDelegate;
     private AppMenu mAppMenu;
     private AppMenuDragHelper mAppMenuDragHelper;
-    private final AppMenuCoordinator.AppMenuDelegate mAppMenuDelegate;
+    private final ArrayList<AppMenuObserver> mObservers;
+    private final int mMenuResourceId;
+
+    private final AppMenuPropertiesDelegate mDelegate;
+    private Menu mMenu;
     private final View mDecorView;
 
-    private Menu mMenu;
     /**
      * The resource id of the menu item to highlight when the menu next opens. A value of
      * {@code null} means no item will be highlighted.  This value will be cleared after the menu is
@@ -47,7 +47,7 @@ public class AppMenuHandler {
     private boolean mCircleHighlight;
 
     /**
-     * Constructs an AppMenuHandler object.
+     * Constructs an AppMenuHandlerImpl object.
      *
      * @param delegate        Delegate used to check the desired AppMenu properties on show.
      * @param appMenuDelegate The AppMenuDelegate to handle menu item selection.
@@ -56,24 +56,13 @@ public class AppMenuHandler {
      * @param decorView       The decor {@link View}, e.g. from Window#getDecorView(), for the containing
      *                        activity.
      */
-    public AppMenuHandler(AppMenuPropertiesDelegate delegate,
-                          AppMenuCoordinator.AppMenuDelegate appMenuDelegate,
-                          int menuResourceId, View decorView) {
+    AppMenuHandlerImpl(AppMenuPropertiesDelegate delegate, AppMenuDelegate appMenuDelegate,
+                       int menuResourceId, View decorView) {
         mAppMenuDelegate = appMenuDelegate;
         mDelegate = delegate;
         mDecorView = decorView;
         mObservers = new ArrayList<>();
         mMenuResourceId = menuResourceId;
-//    <!-- This empty view is used as the anchor for custom menu -->
-//    <View
-//        android:id="@+id/menu_anchor_stub"
-//        android:layout_width="0px"
-//        android:layout_height="0px"
-//        android:layout_gravity="bottom|start"
-//        />
-//        mHardwareButtonMenuAnchor = activity.findViewById(R.id.menu_anchor_stub);
-//        assert mHardwareButtonMenuAnchor != null
-//                : "Using AppMenu requires to have menu_anchor_stub view";
     }
 
     /**
@@ -84,33 +73,17 @@ public class AppMenuHandler {
         hideAppMenu();
     }
 
-    /**
-     * Notifies the menu that the contents of the menu item specified by {@code menuRowId} have
-     * changed.  This should be called if icons, titles, etc. are changing for a particular menu
-     * item while the menu is open.
-     *
-     * @param menuRowId The id of the menu item to change.  This must be a row id and not a child
-     *                  id.
-     */
+    @Override
     public void menuItemContentChanged(int menuRowId) {
         if (mAppMenu != null) mAppMenu.menuItemContentChanged(menuRowId);
     }
 
-    /**
-     * Clears the menu highlight.
-     */
+    @Override
     public void clearMenuHighlight() {
         setMenuHighlight(null, false);
     }
 
-    /**
-     * Calls attention to this menu and a particular item in it.  The menu will only stay
-     * highlighted for one menu usage.  After that the highlight will be cleared.
-     *
-     * @param highlightItemId The id of a menu item to highlight or {@code null} to turn off the
-     *                        highlight.
-     * @param circleHighlight Whether the highlighted item should use a circle highlight or not.
-     */
+    @Override
     public void setMenuHighlight(Integer highlightItemId, boolean circleHighlight) {
         if (mHighlightMenuId == null && highlightItemId == null) return;
         if (mHighlightMenuId != null && mHighlightMenuId.equals(highlightItemId)) return;
@@ -206,7 +179,6 @@ public class AppMenuHandler {
                 showFromBottom);
         mAppMenuDragHelper.onShow(startDragging);
         clearMenuHighlight();
-        /*RecordUserAction.record("MobileMenuShow");*/
         return true;
     }
 
@@ -214,9 +186,7 @@ public class AppMenuHandler {
         mAppMenuDragHelper.finishDragging();
     }
 
-    /**
-     * @return Whether the App Menu is currently showing.
-     */
+    @Override
     public boolean isAppMenuShowing() {
         return mAppMenu != null && mAppMenu.isShowing();
     }
@@ -232,27 +202,22 @@ public class AppMenuHandler {
         return mAppMenuDragHelper;
     }
 
-    /**
-     * Requests to hide the App Menu.
-     */
-    void hideAppMenu() {
+    @Override
+    public void hideAppMenu() {
         if (mAppMenu != null && mAppMenu.isShowing()) mAppMenu.dismiss();
     }
 
-    /**
-     * Adds the observer to App Menu.
-     *
-     * @param observer Observer that should be notified about App Menu changes.
-     */
+    @Override
+    public AppMenuButtonHelperInterface createAppMenuButtonHelper() {
+        return new AppMenuButtonHelperImpl(this);
+    }
+
+    @Override
     public void addObserver(AppMenuObserver observer) {
         mObservers.add(observer);
     }
 
-    /**
-     * Removes the observer from the App Menu.
-     *
-     * @param observer Observer that should no longer be notified about App Menu changes.
-     */
+    @Override
     public void removeObserver(AppMenuObserver observer) {
         mObservers.remove(observer);
     }
@@ -278,7 +243,7 @@ public class AppMenuHandler {
      * @param view The inflated view.
      */
     void onHeaderViewInflated(View view) {
-        if (mDelegate != null) mDelegate.onHeaderViewInflated(mAppMenu, view);
+        if (mDelegate != null) mDelegate.onHeaderViewInflated(this, view);
     }
 
     /**
@@ -287,6 +252,6 @@ public class AppMenuHandler {
      * @param view The inflated view.
      */
     void onFooterViewInflated(View view) {
-        if (mDelegate != null) mDelegate.onFooterViewInflated(mAppMenu, view);
+        if (mDelegate != null) mDelegate.onFooterViewInflated(this, view);
     }
 }
