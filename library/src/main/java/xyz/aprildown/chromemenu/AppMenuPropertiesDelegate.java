@@ -4,11 +4,13 @@
 
 package xyz.aprildown.chromemenu;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * App Menu helper that handles hiding and showing menu items based on activity state.
@@ -16,9 +18,9 @@ import androidx.annotation.NonNull;
 public interface AppMenuPropertiesDelegate {
 
     /**
-     * @return Whether the App Menu should be shown.
+     * @return The resource id for the menu to use in {@link AppMenu}.
      */
-    boolean shouldShowAppMenu();
+    int getAppMenuLayoutId();
 
     /**
      * Allows the delegate to show and hide items before the App Menu is shown. It is called every
@@ -33,7 +35,7 @@ public interface AppMenuPropertiesDelegate {
      * Determines whether the header should be shown based on the maximum available menu height.
      *
      * @param maxMenuHeight The maximum available height for the menu to draw.
-     * @return Whether the header, as specified in getHeaderView(), should be shown.
+     * @return Whether the header, as specified in getHeaderResourceId(), should be shown.
      */
     boolean shouldShowHeader(int maxMenuHeight);
 
@@ -43,7 +45,6 @@ public interface AppMenuPropertiesDelegate {
      * will be scrolled off as the menu scrolls.
      */
     int getHeaderResourceId();
-
 
     /**
      * A notification that the header view has finished inflating.
@@ -77,9 +78,16 @@ public interface AppMenuPropertiesDelegate {
     void onFooterViewInflated(@NonNull AppMenu appMenu, @NonNull View view);
 
     /**
-     * Handles menu click events.
+     * Gets an optional bundle of extra data associated with the provided MenuItem.
      *
-     * @param item The clicked menuItem
+     * @param item The {@link MenuItem} for which to return the Bundle.
+     * @return A {@link Bundle} for the provided MenuItem containing extra data, or null.
      */
-    void onMenuItemClicked(@NonNull MenuItem item);
+    @Nullable
+    Bundle getBundleForMenuItem(MenuItem item);
+
+    /**
+     * Notify the delegate that menu was dismissed.
+     */
+    void onMenuDismissed();
 }

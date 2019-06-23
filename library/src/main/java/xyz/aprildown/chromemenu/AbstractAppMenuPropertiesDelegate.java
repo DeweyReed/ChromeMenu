@@ -4,17 +4,14 @@
 
 package xyz.aprildown.chromemenu;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
-public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDelegate {
-    @Override
-    public boolean shouldShowAppMenu() {
-        return true;
-    }
+public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDelegate {
 
     @Override
     public void prepareMenu(@NonNull Menu menu) {
@@ -49,6 +46,11 @@ public class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDeleg
     }
 
     @Override
-    public void onMenuItemClicked(@NonNull MenuItem item) {
+    public Bundle getBundleForMenuItem(MenuItem item) {
+        return null;
+    }
+
+    @Override
+    public void onMenuDismissed() {
     }
 }
