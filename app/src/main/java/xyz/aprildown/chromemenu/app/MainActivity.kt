@@ -145,13 +145,13 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
     override fun destroy() {
     }
 
-    override fun onFooterViewInflated(appMenuHandler: AppMenuHandlerInterface, view: View) {
+    override fun onFooterViewInflated(appMenuHandler: AppMenuHandler, view: View) {
         view.setOnClickListener {
             Toast.makeText(this, "Footer", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onHeaderViewInflated(appMenuHandler: AppMenuHandlerInterface, view: View) {
+    override fun onHeaderViewInflated(appMenuHandler: AppMenuHandler, view: View) {
         view.setOnClickListener {
             Toast.makeText(this, "Header", Toast.LENGTH_SHORT).show()
         }

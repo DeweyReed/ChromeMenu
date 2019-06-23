@@ -9,10 +9,10 @@ import android.view.View;
 /**
  * A helper class for a menu button to decide when to show the app menu and forward touch events.
  * <p>
- * Use {@link AppMenuHandlerImpl#createAppMenuButtonHelper()} to create a new instance, then pass the
- * set the AppMenuButtonHelperInterface instance as a TouchListener for a menu button.
+ * Use {@link AppMenuHandler#createAppMenuButtonHelper()} to create a new instance, then pass the
+ * set the AppMenuButtonHelper instance as a TouchListener for a menu button.
  */
-public interface AppMenuButtonHelperInterface extends View.OnTouchListener {
+public interface AppMenuButtonHelper extends View.OnTouchListener {
     /**
      * @param showsFromBottom Whether the menu shows from the bottom by default.
      */

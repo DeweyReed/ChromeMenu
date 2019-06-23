@@ -8,14 +8,14 @@ import android.content.Context;
 import android.view.View;
 
 /**
- * A factory for creating an {@link AppMenuCoordinatorInterface}.
+ * A factory for creating an {@link AppMenuCoordinator}.
  */
 public class AppMenuCoordinatorFactory {
     private AppMenuCoordinatorFactory() {
     }
 
     /**
-     * Create a new AppMenuCoordinatorInterface.
+     * Create a new AppMenuCoordinator.
      *
      * @param context         The activity context.
      * @param buttonDelegate  The {ToolbarManager for the containing activity.
@@ -23,7 +23,7 @@ public class AppMenuCoordinatorFactory {
      * @param decorView       The decor {@link View}, e.g. from Window#getDecorView(), for the containing
      *                        activity.
      */
-    public static AppMenuCoordinatorInterface createAppMenuCoordinator(
+    public static AppMenuCoordinator createAppMenuCoordinator(
             Context context,
             MenuButtonDelegate buttonDelegate,
             AppMenuDelegate appMenuDelegate,

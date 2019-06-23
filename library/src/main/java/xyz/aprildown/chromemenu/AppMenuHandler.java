@@ -9,7 +9,7 @@ package xyz.aprildown.chromemenu;
  * AppMenuObservers about these actions. This interface may be used by classes outside of app_menu
  * to interact with the app menu.
  */
-public interface AppMenuHandlerInterface {
+public interface AppMenuHandler {
     /**
      * Adds the observer to App Menu.
      *
@@ -60,7 +60,7 @@ public interface AppMenuHandlerInterface {
     void hideAppMenu();
 
     /**
-     * @return A new {@link AppMenuButtonHelperInterface} to hook up to a view containing a menu button.
+     * @return A new {@link AppMenuButtonHelper} to hook up to a view containing a menu button.
      */
-    AppMenuButtonHelperInterface createAppMenuButtonHelper();
+    AppMenuButtonHelper createAppMenuButtonHelper();
 }

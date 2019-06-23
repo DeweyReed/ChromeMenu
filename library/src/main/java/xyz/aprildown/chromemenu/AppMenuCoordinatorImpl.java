@@ -11,7 +11,7 @@ import android.view.ViewConfiguration;
 /**
  * A UI coordinator the app menu.
  */
-class AppMenuCoordinatorImpl implements AppMenuCoordinatorInterface {
+class AppMenuCoordinatorImpl implements AppMenuCoordinator {
 
     private final Context mContext;
     private final MenuButtonDelegate mButtonDelegate;
@@ -75,7 +75,7 @@ class AppMenuCoordinatorImpl implements AppMenuCoordinatorInterface {
     }
 
     @Override
-    public AppMenuHandlerInterface getAppMenuHandler() {
+    public AppMenuHandler getAppMenuHandler() {
         return mAppMenuHandler;
     }
 

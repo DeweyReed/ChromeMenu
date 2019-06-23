@@ -85,7 +85,7 @@ public interface AppMenuPropertiesDelegate {
      * @param appMenuHandler The handler for the menu the view is inside of.
      * @param view           The view that was inflated.
      */
-    void onFooterViewInflated(@NonNull AppMenuHandlerInterface appMenuHandler, @NonNull View view);
+    void onFooterViewInflated(@NonNull AppMenuHandler appMenuHandler, @NonNull View view);
 
     /**
      * A notification that the header view has finished inflating.
@@ -93,5 +93,5 @@ public interface AppMenuPropertiesDelegate {
      * @param appMenuHandler The handler for the menu the view is inside of.
      * @param view           The view that was inflated.
      */
-    void onHeaderViewInflated(@NonNull AppMenuHandlerInterface appMenuHandler, @NonNull View view);
+    void onHeaderViewInflated(@NonNull AppMenuHandler appMenuHandler, @NonNull View view);
 }

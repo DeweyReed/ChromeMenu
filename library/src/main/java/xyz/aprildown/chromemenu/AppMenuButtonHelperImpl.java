@@ -20,7 +20,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
  * Simply construct this class and pass the class instance to a menu button as TouchListener.
  * Then this class will handle everything regarding showing app menu for you.
  */
-class AppMenuButtonHelperImpl extends AccessibilityDelegate implements AppMenuButtonHelperInterface {
+class AppMenuButtonHelperImpl extends AccessibilityDelegate implements AppMenuButtonHelper {
     private final AppMenuHandlerImpl mMenuHandler;
     private Runnable mOnAppMenuShownListener;
     private boolean mIsTouchEventsBeingProcessed;

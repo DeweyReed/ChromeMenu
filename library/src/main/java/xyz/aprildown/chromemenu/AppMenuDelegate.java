@@ -24,7 +24,7 @@ public interface AppMenuDelegate {
     boolean onOptionsItemSelected(@NonNull MenuItem item, @Nullable Bundle menuItemData);
 
     /**
-     * @return {@link AppMenuPropertiesDelegate} instance that the {@link AppMenuHandlerInterface}
+     * @return {@link AppMenuPropertiesDelegate} instance that the {@link AppMenuHandler}
      * should be using.
      */
     AppMenuPropertiesDelegate createAppMenuPropertiesDelegate();

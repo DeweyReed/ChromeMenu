@@ -7,7 +7,7 @@ package xyz.aprildown.chromemenu;
 /**
  * A UI coordinator the app menu.
  */
-public interface AppMenuCoordinatorInterface {
+public interface AppMenuCoordinator {
     /**
      * Called when the containing activity is being destroyed.
      */
@@ -20,9 +20,9 @@ public interface AppMenuCoordinatorInterface {
     void showAppMenuForKeyboardEvent();
 
     /**
-     * @return The {@link AppMenuHandlerInterface} associated with this activity.
+     * @return The {@link AppMenuHandler} associated with this activity.
      */
-    AppMenuHandlerInterface getAppMenuHandler();
+    AppMenuHandler getAppMenuHandler();
 
     /**
      * @return The {@link AppMenuPropertiesDelegate} associated with this activity.

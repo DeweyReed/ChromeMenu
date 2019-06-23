@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Object responsible for handling the creation, showing, hiding of the AppMenu and notifying the
  * AppMenuObservers about these actions.
  */
-class AppMenuHandlerImpl implements AppMenuHandlerInterface {
+class AppMenuHandlerImpl implements AppMenuHandler {
     private final AppMenuDelegate mAppMenuDelegate;
     private AppMenu mAppMenu;
     private AppMenuDragHelper mAppMenuDragHelper;
@@ -208,7 +208,7 @@ class AppMenuHandlerImpl implements AppMenuHandlerInterface {
     }
 
     @Override
-    public AppMenuButtonHelperInterface createAppMenuButtonHelper() {
+    public AppMenuButtonHelper createAppMenuButtonHelper() {
         return new AppMenuButtonHelperImpl(this);
     }
 

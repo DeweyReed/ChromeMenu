@@ -53,10 +53,10 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
     }
 
     @Override
-    public void onFooterViewInflated(@NonNull AppMenuHandlerInterface appMenuHandler, @NonNull View view) {
+    public void onFooterViewInflated(@NonNull AppMenuHandler appMenuHandler, @NonNull View view) {
     }
 
     @Override
-    public void onHeaderViewInflated(@NonNull AppMenuHandlerInterface appMenuHandler, @NonNull View view) {
+    public void onHeaderViewInflated(@NonNull AppMenuHandler appMenuHandler, @NonNull View view) {
     }
 }
