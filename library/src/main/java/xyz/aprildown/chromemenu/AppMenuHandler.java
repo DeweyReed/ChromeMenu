@@ -5,9 +5,7 @@
 package xyz.aprildown.chromemenu;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentCallbacks;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -34,7 +32,6 @@ public class AppMenuHandler {
     private AppMenuDragHelper mAppMenuDragHelper;
     private final AppMenuCoordinator.AppMenuDelegate mAppMenuDelegate;
     private final View mDecorView;
-    private final ComponentCallbacks mComponentCallbacks;
 
     private Menu mMenu;
     /**
@@ -77,18 +74,6 @@ public class AppMenuHandler {
 //        mHardwareButtonMenuAnchor = activity.findViewById(R.id.menu_anchor_stub);
 //        assert mHardwareButtonMenuAnchor != null
 //                : "Using AppMenu requires to have menu_anchor_stub view";
-
-        mComponentCallbacks = new ComponentCallbacks() {
-            @Override
-            public void onConfigurationChanged(Configuration configuration) {
-                hideAppMenu();
-            }
-
-            @Override
-            public void onLowMemory() {
-            }
-        };
-        mDecorView.getContext().registerComponentCallbacks(mComponentCallbacks);
     }
 
     /**
@@ -97,8 +82,6 @@ public class AppMenuHandler {
     void destroy() {
         // Prevent the menu window from leaking.
         hideAppMenu();
-
-        mDecorView.getContext().unregisterComponentCallbacks(mComponentCallbacks);
     }
 
     /**
