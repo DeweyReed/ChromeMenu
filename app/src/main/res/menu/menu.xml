@@ -12,6 +12,7 @@
             <item
                 android:id="@+id/menu12"
                 android:icon="@drawable/ic_create_black_24dp"
+                android:titleCondensed="Short Title"
                 android:title="Cannot" />
         </menu>
     </item>
