@@ -32,6 +32,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ import java.util.List;
  * - Only visible MenuItems are shown.
  * - Disabled items are grayed out.
  */
-class AppMenu implements OnItemClickListener, OnKeyListener {
+class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuAdapter.OnClickHandler {
 
     private static final float LAST_ITEM_SHOW_FRACTION = 0.5f;
 
@@ -106,7 +107,7 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
      * @return Whether a toast has been shown successfully.
      */
     @SuppressLint("RtlHardcoded")
-    public static boolean showAnchoredToast(Context context, View view, CharSequence description) {
+    private static boolean showAnchoredToast(Context context, View view, CharSequence description) {
         if (description == null) return false;
 
         final int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
@@ -226,7 +227,8 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
      *
      * @param menuItem The menu item in the popup that was clicked.
      */
-    void onItemClick(MenuItem menuItem) {
+    @Override
+    public void onItemClick(MenuItem menuItem) {
         if (menuItem.isEnabled()) {
             dismiss();
             mHandler.onOptionsItemSelected(menuItem);
@@ -256,11 +258,13 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
      * @param circleHighlightItem Whether the highlighted item should use a circle highlight or
      *                            not.
      * @param showFromBottom      Whether the appearance animation should run from the bottom up.
+     * @param customViewBinders   See {@link AppMenuPropertiesDelegate#getCustomViewBinders()}.
      */
     void show(Context context, final View anchorView,
               int screenRotation, Rect visibleDisplayFrame, int screenHeight,
               @IdRes int footerResourceId, @IdRes int headerResourceId, Integer highlightedItemId,
-              boolean circleHighlightItem, boolean showFromBottom) {
+              boolean circleHighlightItem, boolean showFromBottom,
+              @Nullable List<CustomViewBinder> customViewBinders) {
         mPopup = new PopupWindow(context);
         mPopup.setFocusable(true);
         mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
@@ -330,7 +334,7 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
         // A List adapter for visible items in the Menu. The first row is added as a header to the
         // list view.
         mAdapter = new AppMenuAdapter(
-                this, menuItems, LayoutInflater.from(context), highlightedItemId);
+                this, menuItems, LayoutInflater.from(context), highlightedItemId, customViewBinders);
 
         @SuppressLint("InflateParams") ViewGroup contentView =
                 (ViewGroup) LayoutInflater.from(context).inflate(R.layout.cm_app_menu_layout, null);
@@ -440,6 +444,20 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
         return mListView;
     }
 
+    /**
+     * @return The menu instance inside of this class.
+     */
+    Menu getMenu() {
+        return mMenu;
+    }
+
+    /**
+     * Invalidate the app menu data. See {@link AppMenuAdapter#notifyDataSetChanged}.
+     */
+    void invalidate() {
+        if (mAdapter != null) mAdapter.notifyDataSetChanged();
+    }
+
     private int setMenuHeight(int numMenuItems, Rect appDimensions, int screenHeight, Rect padding,
                               int footerHeight, int headerHeight, View anchorView) {
         int menuHeight;
@@ -544,7 +562,8 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
      * @param menuItem The menu item in the popup that was long clicked.
      * @param view     The anchor view of the menu item.
      */
-    boolean onItemLongClick(MenuItem menuItem, View view) {
+    @Override
+    public boolean onItemLongClick(MenuItem menuItem, View view) {
         if (!menuItem.isEnabled()) return false;
 
         String description;

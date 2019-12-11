@@ -136,7 +136,7 @@ class AppMenuHandlerImpl implements AppMenuHandler {
             tempMenu.inflate(mMenuResourceId);
             mMenu = tempMenu.getMenu();
         }
-        mDelegate.prepareMenu(mMenu);
+        mDelegate.prepareMenu(mMenu, this);
 
         ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.CmOverflowMenuThemeOverlay);
 
@@ -176,7 +176,7 @@ class AppMenuHandlerImpl implements AppMenuHandler {
         }
         mAppMenu.show(wrapper, anchorView, rotation, appRect, pt.y,
                 footerResourceId, headerResourceId, mHighlightMenuId, mCircleHighlight,
-                showFromBottom);
+                showFromBottom, mDelegate.getCustomViewBinders());
         mAppMenuDragHelper.onShow(startDragging);
         clearMenuHighlight();
         return true;
@@ -184,6 +184,7 @@ class AppMenuHandlerImpl implements AppMenuHandler {
 
     void appMenuDismissed() {
         mAppMenuDragHelper.finishDragging();
+        mDelegate.onMenuDismissed();
     }
 
     @Override
@@ -210,6 +211,11 @@ class AppMenuHandlerImpl implements AppMenuHandler {
     @Override
     public AppMenuButtonHelper createAppMenuButtonHelper() {
         return new AppMenuButtonHelperImpl(this);
+    }
+
+    @Override
+    public void invalidateAppMenu() {
+        if (mAppMenu != null) mAppMenu.invalidate();
     }
 
     @Override

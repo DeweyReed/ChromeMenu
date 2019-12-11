@@ -12,14 +12,22 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
 public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuPropertiesDelegate {
 
     @Override
     public void destroy() {
     }
 
+    @Nullable
     @Override
-    public void prepareMenu(@NonNull Menu menu) {
+    public List<CustomViewBinder> getCustomViewBinders() {
+        return null;
+    }
+
+    @Override
+    public void prepareMenu(@NonNull Menu menu, @NonNull AppMenuHandler handler) {
     }
 
     @Nullable

@@ -12,7 +12,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import kotlinx.android.synthetic.main.activity_main.*
-import xyz.aprildown.chromemenu.*
+import xyz.aprildown.chromemenu.AbstractAppMenuPropertiesDelegate
+import xyz.aprildown.chromemenu.AppMenuCoordinatorFactory
+import xyz.aprildown.chromemenu.AppMenuDelegate
+import xyz.aprildown.chromemenu.AppMenuHandler
+import xyz.aprildown.chromemenu.AppMenuPropertiesDelegate
+import xyz.aprildown.chromemenu.CustomViewBinder
+import xyz.aprildown.chromemenu.MenuButtonDelegate
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
@@ -96,7 +102,11 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         android.R.color.holo_purple
     )
 
-    override fun prepareMenu(menu: Menu) {
+    override fun getCustomViewBinders(): List<CustomViewBinder>? {
+        return null
+    }
+
+    override fun prepareMenu(menu: Menu, handler: AppMenuHandler) {
 
         fun MenuItem.randomTint() {
             setIcon(iconRes[Random.nextInt(iconRes.size)])

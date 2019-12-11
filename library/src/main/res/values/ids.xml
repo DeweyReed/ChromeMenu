@@ -2,8 +2,7 @@
 <resources>
     <!-- App menu item custom tags -->
     <item name="cm_menu_item_enter_anim_id" type="id" />
-    <item name="cm_menu_item_original_background" type="id" />
-
+    <item name="cm_menu_item_view_type" type="id" />
     <!-- Tags -->
     <item name="cm_highlight_state" type="id" />
 </resources>

@@ -40,20 +40,6 @@ class AppMenuCoordinatorImpl implements AppMenuCoordinator {
         mAppMenuPropertiesDelegate = mAppMenuDelegate.createAppMenuPropertiesDelegate();
 
         mAppMenuHandler = new AppMenuHandlerImpl(mAppMenuPropertiesDelegate, appMenuDelegate, mAppMenuPropertiesDelegate.getAppMenuLayoutId(), decorView);
-
-        // TODO(twellington): Move to UpdateMenuItemHelper or common UI coordinator parent?
-        mAppMenuHandler.addObserver(new AppMenuObserver() {
-            @Override
-            public void onMenuVisibilityChanged(boolean isVisible) {
-                if (isVisible) return;
-
-                mAppMenuPropertiesDelegate.onMenuDismissed();
-            }
-
-            @Override
-            public void onMenuHighlightChanged(boolean highlighting) {
-            }
-        });
     }
 
     @Override
