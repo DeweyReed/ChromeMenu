@@ -24,7 +24,7 @@ class AppMenuCoordinatorImpl implements AppMenuCoordinator {
      * Construct a new AppMenuCoordinatorImpl.
      *
      * @param context         The activity context.
-     * @param buttonDelegate  The ToolbarManager for the containing activity.
+     * @param buttonDelegate The {@link MenuButtonDelegate} for the containing activity.
      * @param appMenuDelegate The {@link AppMenuDelegate} for the containing activity.
      * @param decorView       The decor {@link View}, e.g. from Window#getDecorView(), for the containing
      *                        activity.
