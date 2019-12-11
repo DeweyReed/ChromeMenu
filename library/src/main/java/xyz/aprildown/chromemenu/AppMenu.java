@@ -98,7 +98,7 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
     }
 
     /**
-     * Shows the content description toast for items on the toolbar.
+     * Shows a toast anchored on a view.
      *
      * @param context     The context to use for the toast.
      * @param view        The view to anchor the toast.
@@ -106,8 +106,7 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
      * @return Whether a toast has been shown successfully.
      */
     @SuppressLint("RtlHardcoded")
-    private static boolean showAccessibilityToast(
-            Context context, View view, CharSequence description) {
+    public static boolean showAnchoredToast(Context context, View view, CharSequence description) {
         if (description == null) return false;
 
         final int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
@@ -568,6 +567,6 @@ class AppMenu implements OnItemClickListener, OnKeyListener {
 //                    ? resources.getString(R.string.menu_refresh)
 //                    : resources.getString(R.string.menu_stop_refresh);
 //        }
-        return showAccessibilityToast(context, view, description);
+        return showAnchoredToast(context, view, description);
     }
 }
