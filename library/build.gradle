@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 
-apply plugin: 'com.novoda.bintray-release'
-
 android {
     compileSdkVersion versions.compile_sdk
     defaultConfig {
@@ -17,19 +15,4 @@ android {
 
 dependencies {
     implementation libs.androidx_appcompat
-}
-
-publish {
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-    bintrayUser = properties.getProperty("bintray.user")
-    bintrayKey = properties.getProperty("bintray.apikey")
-    userOrg = 'reedreed'
-    groupId = 'xyz.aprildown'
-    artifactId = 'chrome-menu'
-    publishVersion = versions.version_name
-    desc = 'An Android menu library from Chrome-Android. Touch, move and select in one gesture.'
-    website = 'https://github.com/DeweyReed/ChromeMenu'
-    dryRun = false
 }
