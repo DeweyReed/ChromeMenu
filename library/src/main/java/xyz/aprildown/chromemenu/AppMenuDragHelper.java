@@ -16,11 +16,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.IntDef;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-
-import androidx.annotation.IntDef;
 
 /**
  * Handles the drag touch events on AppMenu that start from the menu button.
@@ -226,20 +226,9 @@ class AppMenuDragHelper {
      * @return true whether or not a menu item is performed (executed).
      */
     private boolean menuItemAction(int screenX, int screenY, @ItemAction int action) {
-        ListView listView = mAppMenu.getListView();
+        if (!isReadyForMenuItemAction()) return false;
 
-        // Starting M, we have a popup menu animation that slides down. If we process dragging
-        // events while it's sliding, it will touch many views that are passing by user's finger,
-        // which is not desirable. So we only process when the first item is below the menu button.
-        // Unfortunately, there is no available listener for sliding animation finished. Thus the
-        // following nasty heuristics.
-        final View firstRow = listView.getChildAt(0);
-        if (listView.getFirstVisiblePosition() == 0
-                && firstRow != null
-                && firstRow.getTop() == 0
-                && getScreenVisibleRect(firstRow).bottom <= mMenuButtonScreenCenterY) {
-            return false;
-        }
+        ListView listView = mAppMenu.getListView();
 
         ArrayList<View> itemViews = new ArrayList<>();
         for (int i = 0; i < listView.getChildCount(); ++i) {
@@ -290,6 +279,19 @@ class AppMenuDragHelper {
         view.getLocationOnScreen(mScreenVisiblePoint);
         mScreenVisibleRect.offset(mScreenVisiblePoint[0], mScreenVisiblePoint[1]);
         return mScreenVisibleRect;
+    }
+
+    private boolean isReadyForMenuItemAction() {
+        ListView listView = mAppMenu.getListView();
+
+        // Starting M, we have a popup menu animation that slides down. If we process dragging
+        // events while it's sliding, it will touch many views that are passing by user's finger,
+        // which is not desirable. So we only process when the first item is below the menu button.
+        // Unfortunately, there is no available listener for sliding animation finished. Thus the
+        // following nasty heuristics.
+        final View firstRow = listView.getChildAt(0);
+        return listView.getFirstVisiblePosition() != 0 || firstRow == null || firstRow.getTop() != 0
+                || getScreenVisibleRect(firstRow).bottom > mMenuButtonScreenCenterY;
     }
 
     // Internally used action constants for dragging.
