@@ -62,8 +62,6 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuAdapter.OnCl
     private AppMenuHandlerImpl mHandler;
     private boolean mIsByPermanentButton;
     private AnimatorSet mMenuItemEnterAnimator;
-    /*private AnimatorListener mAnimationHistogramRecorder = AnimationFrameTimeHistogram
-            .getAnimatorRecorder("WrenchMenu.OpeningAnimationFrameTimes");*/
 
     /**
      * Creates and sets up the App Menu.
@@ -522,7 +520,6 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuAdapter.OnCl
             }
         }
 
-        /*mMenuItemEnterAnimator.addListener(mAnimationHistogramRecorder);*/
         mMenuItemEnterAnimator.start();
     }
 
