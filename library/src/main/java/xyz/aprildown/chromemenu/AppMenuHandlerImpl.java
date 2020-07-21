@@ -111,7 +111,7 @@ class AppMenuHandlerImpl implements AppMenuHandler {
     // TODO(crbug.com/635567): Fix this properly.
     @SuppressLint("ResourceType")
     boolean showAppMenu(View anchorView, boolean startDragging, boolean showFromBottom) {
-        if (!mAppMenuDelegate.shouldShowAppMenu() || isAppMenuShowing()) return false;
+        if (!shouldShowAppMenu() || isAppMenuShowing()) return false;
 
         Context context = mDecorView.getContext();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -259,5 +259,15 @@ class AppMenuHandlerImpl implements AppMenuHandler {
      */
     void onFooterViewInflated(View view) {
         if (mDelegate != null) mDelegate.onFooterViewInflated(this, view);
+    }
+
+    private boolean shouldShowAppMenu() {
+        // If the activity's decor view is not attached to window, we don't show the app menu
+        // because the window manager might have revoked the window token for this activity. See
+        // https://crbug.com/1105831.
+        if (!mDecorView.isAttachedToWindow()) {
+            return false;
+        }
+        return mAppMenuDelegate.shouldShowAppMenu();
     }
 }
