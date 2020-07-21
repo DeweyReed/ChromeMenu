@@ -4,7 +4,7 @@ ext {
             android_gradle: '3.6.4',
 
             compile_sdk   : 29,
-            min_sdk       : 17,
+            min_sdk       : 19,
             target_sdk    : 29,
 
             version_code  : 11,
