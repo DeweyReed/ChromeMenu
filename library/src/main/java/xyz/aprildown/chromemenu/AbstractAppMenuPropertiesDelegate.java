@@ -51,6 +51,16 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
     }
 
     @Override
+    public int getAppMenuLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public int getGroupDividerId() {
+        return 0;
+    }
+
+    @Override
     public boolean shouldShowFooter(int maxMenuHeight) {
         return false;
     }
@@ -70,6 +80,11 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
 
     @Override
     public boolean shouldShowIconBeforeItem() {
+        return false;
+    }
+
+    @Override
+    public boolean shouldShowRegroupedMenu() {
         return false;
     }
 }

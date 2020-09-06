@@ -152,6 +152,14 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         return true
     }
 
+    override fun getGroupDividerId(): Int {
+        return 0
+    }
+
+    override fun shouldShowRegroupedMenu(): Boolean {
+        return false
+    }
+
     override fun destroy() {
     }
 

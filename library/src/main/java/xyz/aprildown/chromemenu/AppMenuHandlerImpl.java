@@ -182,8 +182,8 @@ class AppMenuHandlerImpl implements AppMenuHandler {
             headerResourceId = mDelegate.getHeaderResourceId();
         }
         mAppMenu.show(wrapper, anchorView, rotation, appRect, pt.y,
-                footerResourceId, headerResourceId, mHighlightMenuId, mCircleHighlight,
-                showFromBottom, mDelegate.getCustomViewBinders());
+                footerResourceId, headerResourceId, mDelegate.getGroupDividerId(), mHighlightMenuId,
+                mCircleHighlight, showFromBottom, mDelegate.getCustomViewBinders());
         mAppMenuDragHelper.onShow(startDragging);
         clearMenuHighlight();
         return true;
