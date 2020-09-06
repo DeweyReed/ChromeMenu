@@ -5,6 +5,7 @@
     <color name="cm_default_text_color">@color/cm_modern_grey_200</color>
 
     <color name="cm_default_icon_color">@color/cm_modern_grey_200</color>
+    <color name="cm_default_icon_color_secondary">@color/cm_white_alpha_70</color>
     <color name="cm_default_icon_color_blue">@color/cm_modern_blue_300</color>
 
     <color name="cm_light_active_color">@color/cm_modern_blue_300</color>

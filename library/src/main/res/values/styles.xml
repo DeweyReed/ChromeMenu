@@ -34,10 +34,24 @@
         <item name="android:background">?attr/listChoiceBackgroundIndicator</item>
     </style>
 
+    <!-- Overflow menu -->
+    <style name="CmAppMenuItemText">
+        <item name="android:textAppearance">@style/CmTextAppearance.TextLarge.Primary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingEnd">9dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
     <style name="CmTextAppearance" parent="android:TextAppearance" />
 
     <style name="CmTextAppearance.CmBlackTitle1">
         <item name="android:textColor">@color/cm_default_text_color_list</item>
         <item name="android:textSize">@dimen/cm_text_size_large</item>
+    </style>
+
+    <style name="CmTextAppearance.TextLarge" />
+
+    <style name="CmTextAppearance.TextLarge.Primary">
+        <item name="android:textColor">@color/cm_default_text_color_list</item>
     </style>
 </resources>

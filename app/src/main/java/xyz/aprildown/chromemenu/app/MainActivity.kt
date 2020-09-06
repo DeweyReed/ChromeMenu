@@ -167,6 +167,10 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         }
     }
 
+    override fun shouldShowIconBeforeItem(): Boolean {
+        return true
+    }
+
     private fun onMenuItemClicked(item: MenuItem) {
         Toast.makeText(this, item.title.toString(), Toast.LENGTH_SHORT).show()
     }

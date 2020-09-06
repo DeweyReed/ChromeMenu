@@ -67,4 +67,9 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
     @Override
     public void onHeaderViewInflated(@NonNull AppMenuHandler appMenuHandler, @NonNull View view) {
     }
+
+    @Override
+    public boolean shouldShowIconBeforeItem() {
+        return false;
+    }
 }

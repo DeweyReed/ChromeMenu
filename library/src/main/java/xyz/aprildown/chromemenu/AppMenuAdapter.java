@@ -76,15 +76,17 @@ class AppMenuAdapter extends BaseAdapter {
     private final float mDpToPx;
     private final int mCustomViewTypes;
     private final Map<CustomViewBinder, Integer> mViewTypeOffsetMap;
+    private final boolean mIconBeforeItem;
 
     AppMenuAdapter(OnClickHandler onClickHandler, List<MenuItem> menuItems,
                    LayoutInflater inflater, Integer highlightedItemId,
-                   @Nullable List<CustomViewBinder> customViewBinders) {
+                   @Nullable List<CustomViewBinder> customViewBinders, boolean iconBeforeItem) {
         mOnClickHandler = onClickHandler;
         mMenuItems = menuItems;
         mInflater = inflater;
         mHighlightedItemId = highlightedItemId;
         mCustomViewBinders = customViewBinders;
+        mIconBeforeItem = iconBeforeItem;
         mNumMenuItems = menuItems.size();
         mDpToPx = inflater.getContext().getResources().getDisplayMetrics().density;
 
@@ -261,11 +263,13 @@ class AppMenuAdapter extends BaseAdapter {
 
     private void setupStandardMenuItemViewHolder(StandardMenuItemViewHolder holder,
                                                  View convertView, final MenuItem item) {
+        // The standard menu item does not support the checkable item.
+        assert !item.isChecked();
+
         // Set up the icon.
         Drawable icon = item.getIcon();
         holder.image.setImageDrawable(icon);
         holder.image.setVisibility(icon == null ? View.GONE : View.VISIBLE);
-        holder.image.setChecked(item.isChecked());
         holder.text.setText(item.getTitle());
         holder.text.setContentDescription(item.getTitleCondensed());
 
@@ -340,7 +344,12 @@ class AppMenuAdapter extends BaseAdapter {
                         || (int) convertView.getTag(R.id.cm_menu_item_view_type)
                         != MenuItemType.STANDARD) {
                     holder = new StandardMenuItemViewHolder();
-                    convertView = mInflater.inflate(R.layout.cm_menu_item, parent, false);
+                    if (mIconBeforeItem) {
+                        convertView = mInflater.inflate(
+                                R.layout.cm_menu_item_start_with_icon, parent, false);
+                    } else {
+                        convertView = mInflater.inflate(R.layout.cm_menu_item, parent, false);
+                    }
                     holder.text = convertView.findViewById(R.id.menu_item_text);
                     holder.image = convertView.findViewById(R.id.menu_item_icon);
                     convertView.setTag(holder);
@@ -369,6 +378,7 @@ class AppMenuAdapter extends BaseAdapter {
                 final MenuItem subItem = item.getSubMenu().getItem(1);
 
                 TitleButtonMenuItemViewHolder holder;
+
                 if (convertView == null
                         || (int) convertView.getTag(R.id.cm_menu_item_view_type)
                         != MenuItemType.TITLE_BUTTON) {
@@ -384,6 +394,12 @@ class AppMenuAdapter extends BaseAdapter {
                             buildStandardItemEnterAnimator(convertView, position));
                 } else {
                     holder = (TitleButtonMenuItemViewHolder) convertView.getTag();
+                }
+
+                if (mIconBeforeItem) {
+                    Drawable icon = titleItem.getIcon();
+                    assert icon != null;
+                    holder.title.setCompoundDrawablesRelative(icon, null, null, null);
                 }
 
                 holder.title.setText(titleItem.getTitle());
@@ -524,7 +540,7 @@ class AppMenuAdapter extends BaseAdapter {
 
     static class StandardMenuItemViewHolder {
         TextView text;
-        AppMenuItemIcon image;
+        ChromeImageView image;
     }
 
     private static class RowItemViewHolder {
@@ -592,7 +608,7 @@ class AppMenuAdapter extends BaseAdapter {
     }
 
     private static class TitleButtonMenuItemViewHolder {
-        TextView title;
+        TextViewWithCompoundDrawables title;
         AppMenuItemIcon checkbox;
         ImageButton button;
     }

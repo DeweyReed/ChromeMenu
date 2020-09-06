@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CmTextViewWithCompoundDrawables">
+        <attr name="cm_drawableWidth" format="dimension" />
+        <attr name="cm_drawableHeight" format="dimension" />
+        <!-- drawableTint wasn't added in Android until API level 23. -->
+        <attr name="cm_chromeDrawableTint" format="color" />
+    </declare-styleable>
+</resources>
