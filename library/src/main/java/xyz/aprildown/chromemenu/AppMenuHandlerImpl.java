@@ -128,6 +128,13 @@ class AppMenuHandlerImpl implements AppMenuHandler {
 //            anchorView = mHardwareButtonMenuAnchor;
 //            isByPermanentButton = true;
 //        }
+        // If the anchor view used to show the popup or the activity's decor view is not attached
+        // to window, we don't show the app menu because the window manager might have revoked
+        // the window token for this activity. See https://crbug.com/1105831.
+        if (!mDecorView.isAttachedToWindow() || !anchorView.isAttachedToWindow()
+                || !anchorView.getRootView().isAttachedToWindow()) {
+            return false;
+        }
 
         if (mMenu == null) {
             // Use a PopupMenu to create the Menu object. Note this is not the same as the
@@ -262,12 +269,6 @@ class AppMenuHandlerImpl implements AppMenuHandler {
     }
 
     private boolean shouldShowAppMenu() {
-        // If the activity's decor view is not attached to window, we don't show the app menu
-        // because the window manager might have revoked the window token for this activity. See
-        // https://crbug.com/1105831.
-        if (!mDecorView.isAttachedToWindow()) {
-            return false;
-        }
         return mAppMenuDelegate.shouldShowAppMenu();
     }
 }
