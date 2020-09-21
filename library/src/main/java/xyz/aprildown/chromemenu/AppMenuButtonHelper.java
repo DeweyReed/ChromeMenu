@@ -13,10 +13,6 @@ import android.view.View;
  * set the AppMenuButtonHelper instance as a TouchListener for a menu button.
  */
 public interface AppMenuButtonHelper extends View.OnTouchListener {
-    /**
-     * @param showsFromBottom Whether the menu shows from the bottom by default.
-     */
-    void setMenuShowsFromBottom(boolean showsFromBottom);
 
     /**
      * @return Whether app menu is active. That is, AppMenu is showing or menu button is consuming

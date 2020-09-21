@@ -103,14 +103,13 @@ class AppMenuHandlerImpl implements AppMenuHandler {
      *                       dragging down on the menu button, this should be true. Note that if
      *                       anchorView is null, this must be false since we no longer support
      *                       hardware menu button dragging.
-     * @param showFromBottom Whether the menu should be shown from the bottom up.
      * @return True, if the menu is shown, false, if menu is not shown, example
      * reasons: the menu is not yet available to be shown, or the menu is
      * already showing.
      */
     // TODO(crbug.com/635567): Fix this properly.
     @SuppressLint("ResourceType")
-    boolean showAppMenu(View anchorView, boolean startDragging, boolean showFromBottom) {
+    boolean showAppMenu(View anchorView, boolean startDragging) {
         if (!shouldShowAppMenu() || isAppMenuShowing()) return false;
 
         Context context = mDecorView.getContext();
@@ -183,7 +182,7 @@ class AppMenuHandlerImpl implements AppMenuHandler {
         }
         mAppMenu.show(wrapper, anchorView, rotation, appRect, pt.y,
                 footerResourceId, headerResourceId, mDelegate.getGroupDividerId(), mHighlightMenuId,
-                mCircleHighlight, showFromBottom, mDelegate.getCustomViewBinders());
+                mCircleHighlight, mDelegate.getCustomViewBinders());
         mAppMenuDragHelper.onShow(startDragging);
         clearMenuHighlight();
         return true;

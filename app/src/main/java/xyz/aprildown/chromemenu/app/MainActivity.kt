@@ -18,7 +18,6 @@ import xyz.aprildown.chromemenu.AppMenuDelegate
 import xyz.aprildown.chromemenu.AppMenuHandler
 import xyz.aprildown.chromemenu.AppMenuPropertiesDelegate
 import xyz.aprildown.chromemenu.CustomViewBinder
-import xyz.aprildown.chromemenu.MenuButtonDelegate
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
@@ -29,10 +28,7 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
 
         val coordinator = AppMenuCoordinatorFactory.createAppMenuCoordinator(
             this,
-            object : MenuButtonDelegate {
-                override fun getMenuButtonView(): View? = btnSimple
-                override fun isMenuFromBottom(): Boolean = false
-            },
+            { btnSimple },
             object : AppMenuDelegate {
                 override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
                     onMenuItemClicked(item)
@@ -56,10 +52,7 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
 
         val coordinator1 = AppMenuCoordinatorFactory.createAppMenuCoordinator(
             this,
-            object : MenuButtonDelegate {
-                override fun getMenuButtonView(): View? = btnSimple
-                override fun isMenuFromBottom(): Boolean = false
-            },
+            { btnSimple },
             object : AppMenuDelegate {
                 override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
                     onMenuItemClicked(item)
