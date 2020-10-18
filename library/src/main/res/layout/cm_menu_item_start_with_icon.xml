@@ -15,7 +15,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:gravity="center_vertical"
-        android:tint="@color/cm_default_icon_color_secondary" />
+        android:tint="@color/cm_default_icon_color_secondary_tint_list" />
 
     <TextView
         android:id="@+id/menu_item_text"

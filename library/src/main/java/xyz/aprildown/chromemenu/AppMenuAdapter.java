@@ -47,7 +47,7 @@ import java.util.Map;
  */
 class AppMenuAdapter extends BaseAdapter {
 
-    private final OnClickHandler mOnClickHandler;
+    private final AppMenuClickHandler mAppMenuClickHandler;
 
     /**
      * IDs of all of the buttons in cm_icon_row_menu_item.xml.
@@ -78,10 +78,10 @@ class AppMenuAdapter extends BaseAdapter {
     private final Map<CustomViewBinder, Integer> mViewTypeOffsetMap;
     private final boolean mIconBeforeItem;
 
-    AppMenuAdapter(OnClickHandler onClickHandler, List<MenuItem> menuItems,
+    AppMenuAdapter(AppMenuClickHandler appMenuClickHandler, List<MenuItem> menuItems,
                    LayoutInflater inflater, Integer highlightedItemId,
                    @Nullable List<CustomViewBinder> customViewBinders, boolean iconBeforeItem) {
-        mOnClickHandler = onClickHandler;
+        mAppMenuClickHandler = appMenuClickHandler;
         mMenuItems = menuItems;
         mInflater = inflater;
         mHighlightedItemId = highlightedItemId;
@@ -212,14 +212,14 @@ class AppMenuAdapter extends BaseAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnClickHandler.onItemClick(item);
+                mAppMenuClickHandler.onItemClick(item);
             }
         });
 
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                return mOnClickHandler.onItemLongClick(item, v);
+                return mAppMenuClickHandler.onItemLongClick(item, v);
             }
         });
 
@@ -282,7 +282,7 @@ class AppMenuAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnClickHandler.onItemClick(item);
+                mAppMenuClickHandler.onItemClick(item);
             }
         });
     }
@@ -408,7 +408,7 @@ class AppMenuAdapter extends BaseAdapter {
                 holder.title.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnClickHandler.onItemClick(titleItem);
+                        mAppMenuClickHandler.onItemClick(titleItem);
                     }
                 });
                 if (TextUtils.isEmpty(titleItem.getTitleCondensed())) {
@@ -456,7 +456,8 @@ class AppMenuAdapter extends BaseAdapter {
                         convertView = null;
                     }
 
-                    convertView = binder.getView(item, convertView, parent, mInflater);
+                    convertView = binder.getView(
+                            item, convertView, parent, mInflater, mAppMenuClickHandler);
 
                     if (binder.supportsEnterAnimation(item.getItemId())) {
                         convertView.setTag(R.id.cm_menu_item_enter_anim_id,
@@ -465,13 +466,6 @@ class AppMenuAdapter extends BaseAdapter {
 
                     // This will ensure that the item is not highlighted when selected.
                     convertView.setEnabled(item.isEnabled());
-
-                    convertView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mOnClickHandler.onItemClick(item);
-                        }
-                    });
 
                     bound = true;
                     break;
@@ -585,26 +579,6 @@ class AppMenuAdapter extends BaseAdapter {
          * this.
          */
         int NUM_ENTRIES = 5;
-    }
-
-    /**
-     * Interface to handle clicks and long-clicks on menu items.
-     */
-    interface OnClickHandler {
-        /**
-         * Handles clicks on the AppMenu popup.
-         *
-         * @param menuItem The menu item in that was clicked.
-         */
-        void onItemClick(MenuItem menuItem);
-
-        /**
-         * Handles long clicks on image buttons on the AppMenu popup.
-         *
-         * @param menuItem The menu item that was long clicked.
-         * @param view     The anchor view of the menu item.
-         */
-        boolean onItemLongClick(MenuItem menuItem, View view);
     }
 
     private static class TitleButtonMenuItemViewHolder {

@@ -83,8 +83,4 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
         return false;
     }
 
-    @Override
-    public boolean shouldShowRegroupedMenu() {
-        return false;
-    }
 }

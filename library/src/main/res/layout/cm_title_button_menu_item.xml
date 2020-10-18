@@ -20,16 +20,12 @@
 
     <xyz.aprildown.chromemenu.TextViewWithCompoundDrawables
         android:id="@+id/title"
-        style="@style/CmAppMenuItemText"
+        style="@style/CmAppMenuItemTextViewWithCompoundDrawables"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="?attr/listChoiceBackgroundIndicator"
         android:paddingStart="16dp"
-        android:drawablePadding="12dp"
-        android:drawableTint="@color/cm_default_icon_color_secondary"
-        app:cm_drawableHeight="24dp"
-        app:cm_drawableWidth="24dp" />
+        android:background="?attr/listChoiceBackgroundIndicator"/>
 
     <!-- Checkbox.  Paddings account for built-in padding from the Android resource. -->
     <xyz.aprildown.chromemenu.AppMenuItemIcon

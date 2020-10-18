@@ -149,10 +149,6 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         return 0
     }
 
-    override fun shouldShowRegroupedMenu(): Boolean {
-        return false
-    }
-
     override fun destroy() {
     }
 
