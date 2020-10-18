@@ -457,7 +457,7 @@ class AppMenuAdapter extends BaseAdapter {
                     }
 
                     convertView = binder.getView(
-                            item, convertView, parent, mInflater, mAppMenuClickHandler);
+                            item, convertView, parent, mInflater, mAppMenuClickHandler, mHighlightedItemId);
 
                     if (binder.supportsEnterAnimation(item.getItemId())) {
                         convertView.setTag(R.id.cm_menu_item_enter_anim_id,

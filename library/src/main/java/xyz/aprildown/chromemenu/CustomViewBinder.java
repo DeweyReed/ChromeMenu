@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
  * The binder may be used to custom layout/presentation of individual menu items. Clicks on the menu
  * item will still be handled by the app menu.
  * item need to be handled by {@link AppMenuClickHandler}, which is received in {{@link
- * #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler)}}.
+ * #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler, Integer)}}.
  */
 public interface CustomViewBinder {
     /**
@@ -28,7 +28,7 @@ public interface CustomViewBinder {
 
     /**
      * @return The number of types of Views that will be created by
-     * {{@link #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler)}}. The value
+     * {{@link #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler, Integer)}}. The value
      * returned by this method should be effectively treated as final. Once the CustomViewBinder has
      * been retrieved by the app menu, it is expected that the item view type count remains stable.
      */
@@ -50,11 +50,16 @@ public interface CustomViewBinder {
      * @param parent      The parent that this view will eventually be attached to.
      * @param inflater    A {@link LayoutInflater} to use when inflating new views.
      * @param appMenuClickHandler A {@link AppMenuClickHandler} to handle click events in the view.
+     * @param highlightedItemId     The resource id of the menu item that should be highlighted.
+     *                              Can be {@code null} if no item should be highlighted. Note that
+     *                              the custom view binder is responsible for highlighting the
+     *                              appropriate sub-view based on this id.
      * @return A View corresponding to the provided menu item.
      */
     View getView(
             MenuItem item, @Nullable View convertView, ViewGroup parent,
-            LayoutInflater inflater, AppMenuClickHandler appMenuClickHandler);
+            LayoutInflater inflater, AppMenuClickHandler appMenuClickHandler,
+            @Nullable Integer highlightedItemId);
 
     /**
      * Determines whether the enter animation should be applied to the menu item matching the
@@ -67,7 +72,7 @@ public interface CustomViewBinder {
 
     /**
      * Retrieve the pixel height for the custom view. We cannot use View#getHeight() in {{@link
-     * #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler)}} because View#getHeight() will return 0
+     * #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler, Integer)}} because View#getHeight() will return 0
      * before the view is laid out. This method is for calculating popup window size, and the height
      * should bese on the layout xml file related to the custom view.
      *
