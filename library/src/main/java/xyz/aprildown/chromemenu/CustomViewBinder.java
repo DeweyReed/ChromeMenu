@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
  * item will still be handled by the app menu.
  * item need to be handled by {@link AppMenuClickHandler}, which is received in {{@link
  * #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler, Integer)}}.
+ * Any in-product help highlighting for custom items and its sub-view needs to be handled by the
+ * binder.
  */
 public interface CustomViewBinder {
     /**
@@ -28,9 +30,10 @@ public interface CustomViewBinder {
 
     /**
      * @return The number of types of Views that will be created by
-     * {{@link #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler, Integer)}}. The value
-     * returned by this method should be effectively treated as final. Once the CustomViewBinder has
-     * been retrieved by the app menu, it is expected that the item view type count remains stable.
+     * {{@link #getView(MenuItem, View, ViewGroup, LayoutInflater, AppMenuClickHandler,
+     * Integer)}}. The value returned by this method should be effectively treated as
+     * final. Once the CustomViewBinder has been retrieved by the app menu, it is expected that the
+     * item view type count remains stable.
      */
     int getViewTypeCount();
 
@@ -53,7 +56,7 @@ public interface CustomViewBinder {
      * @param highlightedItemId     The resource id of the menu item that should be highlighted.
      *                              Can be {@code null} if no item should be highlighted. Note that
      *                              the custom view binder is responsible for highlighting the
-     *                              appropriate sub-view based on this id.
+     *                              custom view and the appropriate sub-view based on this id.
      * @return A View corresponding to the provided menu item.
      */
     View getView(
