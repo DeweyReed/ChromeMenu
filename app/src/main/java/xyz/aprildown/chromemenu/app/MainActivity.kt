@@ -179,4 +179,9 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
     override fun getBundleForMenuItem(item: MenuItem): Bundle? = null
 
     override fun onMenuDismissed() = Unit
+
+    override fun recordAppMenuSimilarSelectionIfNeeded(
+        previousMenuItemId: Int,
+        currentMenuItemId: Int
+    ): Boolean = false
 }

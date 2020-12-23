@@ -83,4 +83,8 @@ public abstract class AbstractAppMenuPropertiesDelegate implements AppMenuProper
         return false;
     }
 
+    @Override
+    public boolean recordAppMenuSimilarSelectionIfNeeded(int previousMenuItemId, int currentMenuItemId) {
+        return false;
+    }
 }
