@@ -11,24 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
-import kotlinx.android.synthetic.main.activity_main.*
 import xyz.aprildown.chromemenu.AbstractAppMenuPropertiesDelegate
 import xyz.aprildown.chromemenu.AppMenuCoordinatorFactory
 import xyz.aprildown.chromemenu.AppMenuDelegate
 import xyz.aprildown.chromemenu.AppMenuHandler
 import xyz.aprildown.chromemenu.AppMenuPropertiesDelegate
 import xyz.aprildown.chromemenu.CustomViewBinder
+import xyz.aprildown.chromemenu.app.databinding.ActivityMainBinding
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val coordinator = AppMenuCoordinatorFactory.createAppMenuCoordinator(
             this,
-            { btnSimple },
+            { binding.btnSimple },
             object : AppMenuDelegate {
                 override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
                     onMenuItemClicked(item)
@@ -46,13 +48,13 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
             window.decorView
         )
 
-        btnSimple.setOnTouchListener(
+        binding.btnSimple.setOnTouchListener(
             coordinator.appMenuHandler.createAppMenuButtonHelper()
         )
 
         val coordinator1 = AppMenuCoordinatorFactory.createAppMenuCoordinator(
             this,
-            { btnSimple },
+            { binding.btnSimple },
             object : AppMenuDelegate {
                 override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
                     onMenuItemClicked(item)
@@ -66,9 +68,9 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
             },
             window.decorView
         )
-        btnAdvanced.setOnTouchListener(coordinator1.appMenuHandler.createAppMenuButtonHelper())
+        binding.btnAdvanced.setOnTouchListener(coordinator1.appMenuHandler.createAppMenuButtonHelper())
 
-        btnMainNight.setOnClickListener {
+        binding.btnMainNight.setOnClickListener {
             val default = AppCompatDelegate.getDefaultNightMode()
             if (default == AppCompatDelegate.MODE_NIGHT_YES) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
