@@ -3,9 +3,9 @@ ext {
     versions = [
             android_gradle: '4.1.1',
 
-            compile_sdk   : 29,
+            compile_sdk   : 30,
             min_sdk       : 19,
-            target_sdk    : 29,
+            target_sdk    : 30,
 
             version_code  : 11,
             version_name  : "0.1.1",
