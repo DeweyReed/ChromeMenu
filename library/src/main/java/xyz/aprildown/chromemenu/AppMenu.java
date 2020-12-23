@@ -255,15 +255,13 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuClickHandler
      *                            by external apps.
      * @param groupDividerResourceId     The resource id of divider menu items. This will be used to
      *         determine the number of dividers that appear in the menu.
-     * @param circleHighlightItem Whether the highlighted item should use a circle highlight or
-     *                            not.
      * @param customViewBinders   See {@link AppMenuPropertiesDelegate#getCustomViewBinders()}.
      */
     void show(Context context, final View anchorView,
               int screenRotation, Rect visibleDisplayFrame, int screenHeight,
               @IdRes int footerResourceId, @IdRes int headerResourceId,
               @IdRes int groupDividerResourceId, Integer highlightedItemId,
-              boolean circleHighlightItem, @Nullable List<CustomViewBinder> customViewBinders) {
+              @Nullable List<CustomViewBinder> customViewBinders) {
         mPopup = new PopupWindow(context);
         mPopup.setFocusable(true);
         mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
@@ -343,9 +341,11 @@ class AppMenu implements OnItemClickListener, OnKeyListener, AppMenuClickHandler
 
         int headerHeight = inflateHeader(headerResourceId, contentView, menuWidth);
 
-        if (highlightedItemId != null) {
+        if (highlightedItemId != null
+                && (highlightedItemId == footerResourceId
+                || highlightedItemId == headerResourceId)) {
             View viewToHighlight = contentView.findViewById(highlightedItemId);
-            ViewHighlighter.turnOnHighlight(viewToHighlight, circleHighlightItem);
+            ViewHighlighter.turnOnRectangularHighlight(viewToHighlight);
         }
 
         // Set the adapter after the header is added to avoid crashes on JellyBean.

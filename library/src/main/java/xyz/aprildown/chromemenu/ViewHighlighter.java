@@ -1,73 +1,88 @@
 package xyz.aprildown.chromemenu;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 
 class ViewHighlighter {
+
     /**
-     * Create a highlight layer over the view.
-     *
-     * @param view     The view to be highlighted.
-     * @param circular Whether the highlight should be a circle or rectangle.
+     * Create a circular highlight layer over the view.
+     * @param view The view to be highlighted.
      */
-    static void turnOnHighlight(View view, boolean circular) {
+    public static void turnOnCircularHighlight(View view) {
         if (view == null) return;
-        final Context context = view.getContext();
 
-        boolean highlighted = view.getTag(R.id.cm_highlight_state) != null && (boolean) view.getTag(R.id.cm_highlight_state);
-        if (highlighted) return;
+        PulseDrawable pulseDrawable = PulseDrawable.createCircle(view.getContext());
 
-        PulseDrawable pulseDrawable = circular
-                ? PulseDrawable.createCircle(context)
-                : PulseDrawable.createHighlight(context);
+        attachViewAsHighlight(view, pulseDrawable);
+    }
 
-        Resources resources = context.getResources();
-        Drawable background = view.getBackground();
-        if (background != null) {
-            Drawable.ConstantState state = background.getConstantState();
-            if (state != null) {
-                background = state.newDrawable(resources);
-            }
-        }
+    /**
+     * Create a rectangular highlight layer over the view.
+     * @param view The view to be highlighted.
+     */
+    public static void turnOnRectangularHighlight(View view) {
+        if (view == null) return;
 
-        LayerDrawable drawable = ApiCompatibilityUtils.createLayerDrawable(background == null
-                ? new Drawable[]{pulseDrawable}
-                : new Drawable[]{background, pulseDrawable});
-        view.setBackground(drawable);
-        view.setTag(R.id.cm_highlight_state, true);
+        PulseDrawable pulseDrawable = PulseDrawable.createRectangle(view.getContext());
 
-        pulseDrawable.start();
+        attachViewAsHighlight(view, pulseDrawable);
     }
 
     /**
      * Turns off the highlight from the view. The original background of the view is restored.
-     *
      * @param view The associated view.
      */
-    static void turnOffHighlight(View view) {
+    public static void turnOffHighlight(View view) {
         if (view == null) return;
 
-        boolean highlighted = view.getTag(R.id.cm_highlight_state) != null && (boolean) view.getTag(R.id.cm_highlight_state);
+        boolean highlighted = view.getTag(R.id.cm_highlight_state) != null
+                ? (boolean) view.getTag(R.id.cm_highlight_state)
+                : false;
         if (!highlighted) return;
         view.setTag(R.id.cm_highlight_state, false);
 
-        Resources resources = view.getContext().getResources();
+        Resources resources = view.getContext().getApplicationContext().getResources();
         Drawable existingBackground = view.getBackground();
         if (existingBackground instanceof LayerDrawable) {
             LayerDrawable layerDrawable = (LayerDrawable) existingBackground;
             if (layerDrawable.getNumberOfLayers() >= 2) {
-                Drawable.ConstantState state = layerDrawable.getDrawable(0).getConstantState();
-                if (state == null) {
-                    view.setBackground(null);
-                    return;
-                }
-                view.setBackground(state.newDrawable(resources));
+                view.setBackground(
+                        layerDrawable.getDrawable(0).getConstantState().newDrawable(resources));
             } else {
                 view.setBackground(null);
             }
         }
+    }
+
+    /**
+     * Attach a custom PulseDrawable as a highlight layer over the view.
+     *
+     * Will not highlight if the view is already highlighted.
+     *
+     * @param view The view to be highlighted.
+     * @param pulseDrawable The highlight.
+     */
+    public static void attachViewAsHighlight(View view, PulseDrawable pulseDrawable) {
+        boolean highlighted = view.getTag(R.id.cm_highlight_state) != null
+                ? (boolean) view.getTag(R.id.cm_highlight_state)
+                : false;
+        if (highlighted) return;
+
+        Resources resources = view.getContext().getResources();
+        Drawable background = view.getBackground();
+        if (background != null) {
+            background = background.getConstantState().newDrawable();
+        }
+
+        Drawable[] layers = background == null ? new Drawable[] {pulseDrawable}
+                : new Drawable[] {background, pulseDrawable};
+        LayerDrawable drawable = new LayerDrawable(layers);
+        view.setBackground(drawable);
+        view.setTag(R.id.cm_highlight_state, true);
+
+        pulseDrawable.start();
     }
 }
