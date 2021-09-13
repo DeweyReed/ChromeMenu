@@ -11,6 +11,8 @@ Notice **the press, move, selection, up are finished in one gesture**.
 
 I love this design. It significantly improves the efficiency of using an app. So I dig into chromium, extract related code and pack them into this library.
 
+**Update**: Recently, I found that [getDragToOpenListener](https://developer.android.com/reference/kotlin/androidx/appcompat/widget/PopupMenu#getdragtoopenlistener) provides a similar effect.
+
 ## Usage
 
 1. Install dependency
