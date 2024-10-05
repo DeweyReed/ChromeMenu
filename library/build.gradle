@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     namespace "xyz.aprildown.chromemenu"
@@ -15,8 +16,27 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     resourcePrefix 'cm_'
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
     implementation libs.androidx_appcompat
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "com.github.DeweyReed"
+            artifactId = 'ChromeMenu'
+            version = versions.version_name
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
