@@ -1,6 +1,6 @@
 # ChromeMenu
 
-[![Download](https://jitpack.io/v/xyz.aprildown/ChromeMenu.svg)](https://jitpack.io/#xyz.aprildown/ChromeMenu)
+[![Download](https://jitpack.io/v/DeweyReed/ChromeMenu.svg)](https://jitpack.io/#DeweyReed/ChromeMenu)
 [![API](https://img.shields.io/badge/API-17%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=17)
 
 The menu from [Chromium Android appmenu](https://chromium.googlesource.com/chromium/src/+/refs/heads/master/chrome/browser/ui/android/appmenu/internal/java/src/org/chromium/chrome/browser/ui/appmenu)([Github Mirror](https://github.com/chromium/chromium/tree/master/chrome/browser/ui/android/appmenu/internal/java/src/org/chromium/chrome/browser/ui/appmenu)). It can do this:
@@ -17,8 +17,7 @@ I love this design. It significantly improves the efficiency of using an app. So
 
 1. Install dependency
 
-    - ~~Jcenter: `implementation 'xyz.aprildown:chrome-menu:0.1.1'`~~
-    - JitPack: `implementation 'xyz.aprildown:ChromeMenu:0.1.1'`
+    - JitPack: `implementation 'com.github.DeweyReed:ChromeMenu:0.2.0'`
 
 1. Set up touch listener
 

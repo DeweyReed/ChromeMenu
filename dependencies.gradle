@@ -1,5 +1,4 @@
 ext {
-    //noinspection SpellCheckingInspection
     versions = [
             android_gradle: '8.3.2',
 
@@ -7,8 +6,8 @@ ext {
             min_sdk       : 21,
             target_sdk    : 34,
 
-            version_code  : 11,
-            version_name  : "0.1.1",
+            version_code  : 20,
+            version_name  : "0.2.0",
 
             kotlin        : '1.9.25',
     ]
