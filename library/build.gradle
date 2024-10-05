@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
+    namespace "xyz.aprildown.chromemenu"
     compileSdkVersion versions.compile_sdk
     defaultConfig {
         minSdkVersion versions.min_sdk
@@ -9,7 +10,10 @@ android {
         versionName versions.version_name
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     resourcePrefix 'cm_'
 }
 

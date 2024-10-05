@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity(), AppMenuPropertiesDelegate {
         for (i in 0 until menu.size()) {
             val item = menu.getItem(i)
             if (item.hasSubMenu()) {
-                item.subMenu.randomTint()
+                item.subMenu?.randomTint()
             } else {
                 item.randomTint()
             }

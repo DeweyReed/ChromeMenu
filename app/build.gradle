@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "xyz.aprildown.chromemenu.app"
     compileSdkVersion versions.compile_sdk
     defaultConfig {
         applicationId "xyz.aprildown.chromemenu.app"
@@ -18,15 +19,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':library')
-    implementation libs.kotlin_stdlib_jdk7
     implementation libs.androidx_appcompat
     implementation libs.androidx_constraintlayout
     implementation libs.leak_cannary
