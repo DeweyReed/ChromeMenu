@@ -19,19 +19,35 @@ I love this design. It significantly improves the efficiency of using an app. So
 
     - JitPack: `implementation 'com.github.DeweyReed:ChromeMenu:0.2.0'`
 
-1. Set up touch listener
+2. Set up touch listener
 
     ```Kotlin
-    val handler = AppMenuHandler(activity, listener, R.menu.menu)
-    val helper = AppMenuButtonHelper(handler)
-    btn.setOnTouchListener(helper)
+    val coordinator = AppMenuCoordinatorFactory.createAppMenuCoordinator(
+        this,
+        { binding.btn },
+        object : AppMenuDelegate {
+            override fun onOptionsItemSelected(item: MenuItem, menuItemData: Bundle?): Boolean {
+                onMenuItemClicked(item)
+                return true
+            }
+    
+            override fun createAppMenuPropertiesDelegate(): AppMenuPropertiesDelegate {
+                return object : AbstractAppMenuPropertiesDelegate() {
+                    override fun getAppMenuLayoutId(): Int = R.menu.menu
+                }
+            }
+    
+            override fun shouldShowAppMenu(): Boolean = true
+        },
+        window.decorView
+    )
+    
+    binding.btn.setOnTouchListener(
+        coordinator.appMenuHandler.createAppMenuButtonHelper()
+    )
     ```
 
-    `listener` is an [AppMenuPropertiesDelegate](https://github.com/DeweyReed/ChromeMenu/blob/master/library/src/main/java/xyz/aprildown/chromemenu/AppMenuPropertiesDelegate.java#L15) interface or use its abstract version [AbstractAppMenuPropertiesDelegate()](https://github.com/DeweyReed/ChromeMenu/blob/master/library/src/main/java/xyz/aprildown/chromemenu/AbstractAppMenuPropertiesDelegate.java#L12)
-
-    You can define header and footer and hijack menu items after they are created through the listener.
-
-1. Check the sample for more customization.
+3. Check the sample for more customization.
 
 ## More Usage
 
@@ -45,6 +61,11 @@ I love this design. It significantly improves the efficiency of using an app. So
     ```
 
 ## ChangeLog and Migration
+
+- 0.2.0
+
+  - New usage
+  - Target Android SDK 34, Min Android SDK 21, AGP 8.3.2, AppCompat 1.7.0
 
 - 0.1.1
 
